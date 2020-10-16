@@ -12,7 +12,7 @@ using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Logging;
 
 namespace Quhinja.WebApi
-{
+{//Nedeljko
     public class Startup
     {
         public Startup(IConfiguration configuration)
