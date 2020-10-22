@@ -23,10 +23,10 @@ namespace Quhinja.Data
         //public DbSet<User> Users { get; set; }
 
         public QuhinjaDbContext(DbContextOptions<QuhinjaDbContext> options)
-            :base(options)
-            {
+            : base(options)
+        {
 
-            }
+        }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {

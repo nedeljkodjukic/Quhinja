@@ -14,8 +14,6 @@ namespace Quhinja.Data.Configuration.EntitiesConfiguration
             builder.Property(rec =>rec.Name)
                   .IsRequired(true);
 
-            builder.Property(rec => rec.Dish)
-                .IsRequired(true);
 
             builder.Property(rec => rec.Preview)
                 .IsRequired(false);

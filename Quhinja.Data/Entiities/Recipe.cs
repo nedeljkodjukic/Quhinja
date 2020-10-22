@@ -18,5 +18,7 @@ namespace Quhinja.Data.Entiities
 
         public string Preview { get; set; }
 
+        public ICollection<MenuItem> MenuItems { get; set; }
+
     }
 }

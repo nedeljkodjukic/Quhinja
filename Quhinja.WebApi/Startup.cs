@@ -30,7 +30,8 @@ namespace Quhinja.WebApi
         {
             services.AddControllers();
 
-            services.AddDbContext<QuhinjaDbContext>(options => options.UseSqlServer(Configuration.GetConnectionString("DefaultConnection")));
+            services.AddDbContext<QuhinjaDbContext>(options => 
+                options.UseSqlServer(Configuration.GetConnectionString("DefaultConnection")));
                 
         }
 

@@ -28,8 +28,6 @@ namespace Quhinja.Data.Configuration.IdentityConfiguration
             builder.Property(u => u.DateOfEmployment)
                 .IsRequired(true);
 
-            builder.Property(u => u.FavouriteDish)
-                .IsRequired(true);
 
             builder.Property(u => u.Position)
                 .IsRequired(false);

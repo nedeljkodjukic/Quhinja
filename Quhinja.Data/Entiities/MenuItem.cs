@@ -8,6 +8,8 @@ namespace Quhinja.Data.Entiities
 
         public DateTime DateOfDish { get; set; }
 
+        public int RecipeId { get; set; }
+
         public Recipe Recipe { get; set; }
 
     }

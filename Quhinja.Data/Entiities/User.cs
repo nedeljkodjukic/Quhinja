@@ -27,6 +27,7 @@ namespace Quhinja.Data.Entities
 
         public Dish FavouriteDish { get; set; }
 
+
         //public int DishId { get; set; }
 
     }
