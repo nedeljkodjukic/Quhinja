@@ -12,9 +12,11 @@ namespace Quhinja.Data
 
         public DbSet<Ingridient> Indgridients { get; set; }
 
-        public DbSet<Menu> Menus { get; set; }
+        public DbSet<MenuItem> MenuItems { get; set; }
 
         public DbSet<Recipe> Recipes { get; set; }
+
+        public DbSet<DishType> dishTypes { get; set; }
 
         //public DbSet<Role> Roles { get; set; }
 
@@ -30,7 +32,7 @@ namespace Quhinja.Data
         {
             base.OnModelCreating(modelBuilder);
             modelBuilder
-               // .ApplyQuhinjaConfigurations()
+                .ApplyQuhinjaConfiguration()
                 .ApplyIdentityConfiguration<int>();
         }
 

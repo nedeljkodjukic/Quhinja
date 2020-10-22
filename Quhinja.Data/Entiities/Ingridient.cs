@@ -8,5 +8,9 @@ namespace Quhinja.Data.Entiities
 
         public int Quantity { get; set; }
 
+        public int RecipeId { get; set; }
+
+        public Recipe Recipe { get; set; }
+
     }
 }
