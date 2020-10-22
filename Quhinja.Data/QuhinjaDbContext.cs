@@ -16,7 +16,7 @@ namespace Quhinja.Data
 
         public DbSet<Recipe> Recipes { get; set; }
 
-        public DbSet<DishType> dishTypes { get; set; }
+        public DbSet<DishType> DishTypes { get; set; }
 
         //public DbSet<Role> Roles { get; set; }
 
