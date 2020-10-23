@@ -10,8 +10,8 @@ using Quhinja.Data;
 namespace Quhinja.Data.Migrations
 {
     [DbContext(typeof(QuhinjaDbContext))]
-    [Migration("20201022191417_initial")]
-    partial class initial
+    [Migration("20201022193812_v1")]
+    partial class v1
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
