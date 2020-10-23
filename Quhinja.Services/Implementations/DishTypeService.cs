@@ -1,8 +1,10 @@
 ﻿using AutoMapper;
 using Microsoft.EntityFrameworkCore;
 using Quhinja.Data;
+using Quhinja.Data.Entiities;
 using Quhinja.Services.Interfaces;
-using Quhinja.Services.Models.OutputModels;
+using Quhinja.Services.Models.InputModels.DishType;
+using Quhinja.Services.Models.OutputModels.DishType;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -24,7 +26,7 @@ namespace Quhinja.Services.Implementations
         
         public async Task<DishTypeBasicOutputModel>GetDishTypeByIdAsync(int id)
         {
-            var dishType = await data.DishTypes.SingleOrDefaultAsync(r => r.Id == id);
+            var dishType = await data.DishTypes.Include(d => d.Dishes).SingleOrDefaultAsync(r => r.Id == id);
             if (dishType != null)
             {
                 return mapper.Map<DishTypeBasicOutputModel>(dishType);
@@ -34,10 +36,39 @@ namespace Quhinja.Services.Implementations
 
         public async Task<ICollection<DishTypeBasicOutputModel>> GetDishTypesAsync()
         {
-            return await data.DishTypes
+            return await data.DishTypes.Include(d=>d.Dishes)
                 .Select(r => mapper.Map<DishTypeBasicOutputModel>(r))
                 .ToListAsync();
         }
+
+        public async Task<int> AddDishTypeAsync(DishTypeBasicInputModel model)
+        {
+            if (model == null)
+            {
+                throw new ArgumentNullException(nameof(model));
+            }
+
+            var dishType = mapper.Map<DishType>(model);
+
+
+            await data.DishTypes.AddAsync(dishType);
+            data.SaveChanges();
+
+            return dishType.Id;
+        }
+
+        public async Task DeleteDishTypeAsync(int dishTypeId)
+        {
+            var dishTypesInDb = await data.DishTypes
+                .Include(dt =>dt.Dishes)
+                .SingleOrDefaultAsync(dt => dt.Id == dishTypeId);
+            
+                data.DishTypes.Remove(dishTypesInDb);
+                data.SaveChanges();
+            
+        }
+
+
 
     }
 }

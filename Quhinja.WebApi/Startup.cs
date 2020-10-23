@@ -12,7 +12,9 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Logging;
+using Microsoft.OpenApi.Models;
 using Quhinja.Data;
+using Quhinja.Services.Interfaces;
 using Quhinja.WebApi.Helpers;
 
 namespace Quhinja.WebApi
@@ -31,10 +33,15 @@ namespace Quhinja.WebApi
         {
             services.AddControllers();
 
-            services.AddAutoMapper(typeof(Startup))
+            services.AddAutoMapper(typeof(IDishTypeService))
                 .AddDbContext<QuhinjaDbContext>(options =>
                 options.UseSqlServer(Configuration.GetConnectionString("DefaultConnection")))
                 .AddBusinessLogicServices(Configuration);
+
+            services.AddSwaggerGen(x =>
+            {
+                x.SwaggerDoc("v1", new OpenApiInfo { Title = "Quhinja API", Version = "v1" });
+            });
 
         }
 
@@ -45,6 +52,19 @@ namespace Quhinja.WebApi
             {
                 app.UseDeveloperExceptionPage();
             }
+
+            var swaggerOptions = new Options.SwaggerOptions();
+            Configuration.GetSection(nameof(Options.SwaggerOptions)).Bind(swaggerOptions);
+
+            app.UseSwagger(option =>
+            {
+                option.RouteTemplate = swaggerOptions.JsonRoute;
+            });
+
+            app.UseSwaggerUI(option =>
+            {
+                option.SwaggerEndpoint(swaggerOptions.UiEndpoint, swaggerOptions.Description);
+            });
 
             app.UseHttpsRedirection();
 

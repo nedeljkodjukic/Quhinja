@@ -1,6 +1,8 @@
 ﻿using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Quhinja.Services.Interfaces;
+using Quhinja.Services.Models.InputModels.DishType;
+using Quhinja.Services.Models.OutputModels;
 using Quhinja.Services.Models.OutputModels.DishType;
 using System;
 using System.Collections.Generic;
@@ -33,6 +35,28 @@ namespace Quhinja.WebApi.Controllers
         {
             var dishTypeOutputModels = await dishTypeService.GetDishTypesAsync();
             return Ok(dishTypeOutputModels);
+        }
+
+        [AllowAnonymous]
+        [HttpPost]
+        public async Task<ActionResult<int>> AddDishTypeAsync([FromBody] DishTypeBasicInputModel dishTypeInputModel)
+        {
+            if (ModelState.IsValid)
+            {
+                var id = await dishTypeService.AddDishTypeAsync(dishTypeInputModel);
+                return Ok(id);
+            }
+            else
+                return BadRequest(ModelState.Values.SelectMany(x => x.Errors).Select(x => x.ErrorMessage).ToList());
+        }
+        [AllowAnonymous]
+        [HttpDelete]
+        [Route("{id}")]
+
+        public async Task<ActionResult> DeleteDishTypeAsync(int id)
+        {
+            await dishTypeService.DeleteDishTypeAsync(id);
+            return Ok();
         }
 
     }

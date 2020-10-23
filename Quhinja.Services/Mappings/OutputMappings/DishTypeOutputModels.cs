@@ -1,16 +1,14 @@
 ﻿using AutoMapper;
 using Quhinja.Data.Entiities;
-using System;
-using System.Collections.Generic;
-using System.Text;
+using Quhinja.Services.Models.OutputModels.DishType;
 
 namespace Quhinja.Services.Mappings.OutputMappings
 {
-    class DishTypeOutputBasicModels : Profile
+    class DishTypeOutputModels : Profile
     {
-        public DishTypeOutputBasicModels ()
+        public DishTypeOutputModels()
         {
-            CreateMap<DishType, DishTypeOutputBasicModels>();
+            CreateMap<DishType, DishTypeBasicOutputModel>();
         }
 
     }
