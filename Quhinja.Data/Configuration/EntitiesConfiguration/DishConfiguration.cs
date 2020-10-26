@@ -15,6 +15,9 @@ namespace Quhinja.Data.Configuration.EntitiesConfiguration
                   .IsRequired()
                   .HasMaxLength(50);
 
+            builder.Property(dish => dish.DishType)
+                .HasMaxLength(50);
+
             builder.Property(dish => dish.Picture)
                 .IsRequired(false);
 

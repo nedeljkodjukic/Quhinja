@@ -10,14 +10,13 @@ namespace Quhinja.Data
     {
         public DbSet<Dish> Dishes { get; set; }
 
-        public DbSet<Ingridient> Indgridients { get; set; }
+        public DbSet<Ingridient> Ingridients { get; set; }
 
         public DbSet<MenuItem> MenuItems { get; set; }
 
         public DbSet<Recipe> Recipes { get; set; }
 
-        public DbSet<DishType> DishTypes { get; set; }
-
+    public DbSet <IngridientInRecipe> ingridientInRecipes { get; set; }
         //public DbSet<Role> Roles { get; set; }
 
         //public DbSet<User> Users { get; set; }

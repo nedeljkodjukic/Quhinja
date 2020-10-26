@@ -2,6 +2,7 @@
 using Microsoft.EntityFrameworkCore;
 using Quhinja.Data.Configuration.EntitiesConfiguration;
 using Quhinja.Data.Configuration.IdentityConfiguration;
+using Quhinja.Data.Entiities;
 using Quhinja.Data.Entities;
 using System;
 using System.Collections.Generic;
@@ -30,11 +31,12 @@ namespace Quhinja.Data.Configuration
         public static ModelBuilder ApplyQuhinjaConfiguration(this ModelBuilder modelBuilder)
         {
             return modelBuilder
+             .ApplyConfiguration(new IngridientInRecipeConfiguration())
             .ApplyConfiguration(new DishConfiguration())
-              .ApplyConfiguration(new DishTypeConfiguration())
               .ApplyConfiguration(new IngridientConfiguration())
               .ApplyConfiguration(new MenuItemConfiguration())
               .ApplyConfiguration(new RecipeConfiguration());
+            
               }
     }
 }

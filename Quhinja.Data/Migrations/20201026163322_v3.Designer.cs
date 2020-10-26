@@ -10,8 +10,8 @@ using Quhinja.Data;
 namespace Quhinja.Data.Migrations
 {
     [DbContext(typeof(QuhinjaDbContext))]
-    [Migration("20201022193812_v1")]
-    partial class v1
+    [Migration("20201026163322_v3")]
+    partial class v3
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -132,8 +132,9 @@ namespace Quhinja.Data.Migrations
                     b.Property<string>("Description")
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<int>("DishTypeId")
-                        .HasColumnType("int");
+                    b.Property<string>("DishType")
+                        .HasColumnType("nvarchar(50)")
+                        .HasMaxLength(50);
 
                     b.Property<string>("Name")
                         .IsRequired()
@@ -145,26 +146,7 @@ namespace Quhinja.Data.Migrations
 
                     b.HasKey("Id");
 
-                    b.HasIndex("DishTypeId");
-
                     b.ToTable("Dishes");
-                });
-
-            modelBuilder.Entity("Quhinja.Data.Entiities.DishType", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int")
-                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
-
-                    b.Property<string>("Name")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(50)")
-                        .HasMaxLength(50);
-
-                    b.HasKey("Id");
-
-                    b.ToTable("DishTypes");
                 });
 
             modelBuilder.Entity("Quhinja.Data.Entiities.Ingridient", b =>
@@ -179,17 +161,36 @@ namespace Quhinja.Data.Migrations
                         .HasColumnType("nvarchar(50)")
                         .HasMaxLength(50);
 
-                    b.Property<int>("Quantity")
+                    b.HasKey("Id");
+
+                    b.ToTable("Ingridients");
+                });
+
+            modelBuilder.Entity("Quhinja.Data.Entiities.IngridientInRecipe", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int")
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+                    b.Property<int>("IngridientId")
                         .HasColumnType("int");
+
+                    b.Property<string>("Quantity")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(50)")
+                        .HasMaxLength(50);
 
                     b.Property<int>("RecipeId")
                         .HasColumnType("int");
 
                     b.HasKey("Id");
 
+                    b.HasIndex("IngridientId");
+
                     b.HasIndex("RecipeId");
 
-                    b.ToTable("Indgridients");
+                    b.ToTable("ingridientInRecipes");
                 });
 
             modelBuilder.Entity("Quhinja.Data.Entiities.MenuItem", b =>
@@ -420,17 +421,14 @@ namespace Quhinja.Data.Migrations
                         .IsRequired();
                 });
 
-            modelBuilder.Entity("Quhinja.Data.Entiities.Dish", b =>
+            modelBuilder.Entity("Quhinja.Data.Entiities.IngridientInRecipe", b =>
                 {
-                    b.HasOne("Quhinja.Data.Entiities.DishType", "DishType")
-                        .WithMany("Dishes")
-                        .HasForeignKey("DishTypeId")
+                    b.HasOne("Quhinja.Data.Entiities.Ingridient", "Ingridient")
+                        .WithMany("Recipes")
+                        .HasForeignKey("IngridientId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
-                });
 
-            modelBuilder.Entity("Quhinja.Data.Entiities.Ingridient", b =>
-                {
                     b.HasOne("Quhinja.Data.Entiities.Recipe", "Recipe")
                         .WithMany("Ingridients")
                         .HasForeignKey("RecipeId")

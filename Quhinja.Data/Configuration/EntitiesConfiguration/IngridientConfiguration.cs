@@ -16,8 +16,6 @@ namespace Quhinja.Data.Configuration.EntitiesConfiguration
                   .IsRequired()
                   .HasMaxLength(50);
 
-            builder.Property(ing => ing.Quantity)
-                .IsRequired(true);
         }
     }
 }

@@ -3,12 +3,28 @@ using Microsoft.EntityFrameworkCore.Migrations;
 
 namespace Quhinja.Data.Migrations
 {
-    public partial class v1 : Migration
+    public partial class v2 : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
             migrationBuilder.CreateTable(
-                name: "DishTypes",
+                name: "Dishes",
+                columns: table => new
+                {
+                    Id = table.Column<int>(nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
+                    Name = table.Column<string>(maxLength: 50, nullable: false),
+                    Picture = table.Column<string>(nullable: true),
+                    Description = table.Column<string>(nullable: true),
+                    DishType = table.Column<string>(maxLength: 50, nullable: true)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_Dishes", x => x.Id);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "Indgridients",
                 columns: table => new
                 {
                     Id = table.Column<int>(nullable: false)
@@ -17,7 +33,7 @@ namespace Quhinja.Data.Migrations
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_DishTypes", x => x.Id);
+                    table.PrimaryKey("PK_Indgridients", x => x.Id);
                 });
 
             migrationBuilder.CreateTable(
@@ -34,49 +50,6 @@ namespace Quhinja.Data.Migrations
                 constraints: table =>
                 {
                     table.PrimaryKey("PK_Roles", x => x.Id);
-                });
-
-            migrationBuilder.CreateTable(
-                name: "Dishes",
-                columns: table => new
-                {
-                    Id = table.Column<int>(nullable: false)
-                        .Annotation("SqlServer:Identity", "1, 1"),
-                    Name = table.Column<string>(maxLength: 50, nullable: false),
-                    Picture = table.Column<string>(nullable: true),
-                    Description = table.Column<string>(nullable: true),
-                    DishTypeId = table.Column<int>(nullable: false)
-                },
-                constraints: table =>
-                {
-                    table.PrimaryKey("PK_Dishes", x => x.Id);
-                    table.ForeignKey(
-                        name: "FK_Dishes_DishTypes_DishTypeId",
-                        column: x => x.DishTypeId,
-                        principalTable: "DishTypes",
-                        principalColumn: "Id",
-                        onDelete: ReferentialAction.Cascade);
-                });
-
-            migrationBuilder.CreateTable(
-                name: "RoleClaims",
-                columns: table => new
-                {
-                    Id = table.Column<int>(nullable: false)
-                        .Annotation("SqlServer:Identity", "1, 1"),
-                    RoleId = table.Column<int>(nullable: false),
-                    ClaimType = table.Column<string>(nullable: true),
-                    ClaimValue = table.Column<string>(nullable: true)
-                },
-                constraints: table =>
-                {
-                    table.PrimaryKey("PK_RoleClaims", x => x.Id);
-                    table.ForeignKey(
-                        name: "FK_RoleClaims_Roles_RoleId",
-                        column: x => x.RoleId,
-                        principalTable: "Roles",
-                        principalColumn: "Id",
-                        onDelete: ReferentialAction.Cascade);
                 });
 
             migrationBuilder.CreateTable(
@@ -140,20 +113,47 @@ namespace Quhinja.Data.Migrations
                 });
 
             migrationBuilder.CreateTable(
-                name: "Indgridients",
+                name: "RoleClaims",
                 columns: table => new
                 {
                     Id = table.Column<int>(nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
-                    Name = table.Column<string>(maxLength: 50, nullable: false),
-                    Quantity = table.Column<int>(nullable: false),
-                    RecipeId = table.Column<int>(nullable: false)
+                    RoleId = table.Column<int>(nullable: false),
+                    ClaimType = table.Column<string>(nullable: true),
+                    ClaimValue = table.Column<string>(nullable: true)
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_Indgridients", x => x.Id);
+                    table.PrimaryKey("PK_RoleClaims", x => x.Id);
                     table.ForeignKey(
-                        name: "FK_Indgridients_Recipes_RecipeId",
+                        name: "FK_RoleClaims_Roles_RoleId",
+                        column: x => x.RoleId,
+                        principalTable: "Roles",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "ingridientInRecipes",
+                columns: table => new
+                {
+                    Id = table.Column<int>(nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
+                    IngridientId = table.Column<int>(nullable: false),
+                    RecipeId = table.Column<int>(nullable: false),
+                    Quantity = table.Column<string>(maxLength: 50, nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_ingridientInRecipes", x => x.Id);
+                    table.ForeignKey(
+                        name: "FK_ingridientInRecipes_Indgridients_IngridientId",
+                        column: x => x.IngridientId,
+                        principalTable: "Indgridients",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
+                    table.ForeignKey(
+                        name: "FK_ingridientInRecipes_Recipes_RecipeId",
                         column: x => x.RecipeId,
                         principalTable: "Recipes",
                         principalColumn: "Id");
@@ -265,13 +265,13 @@ namespace Quhinja.Data.Migrations
                 });
 
             migrationBuilder.CreateIndex(
-                name: "IX_Dishes_DishTypeId",
-                table: "Dishes",
-                column: "DishTypeId");
+                name: "IX_ingridientInRecipes_IngridientId",
+                table: "ingridientInRecipes",
+                column: "IngridientId");
 
             migrationBuilder.CreateIndex(
-                name: "IX_Indgridients_RecipeId",
-                table: "Indgridients",
+                name: "IX_ingridientInRecipes_RecipeId",
+                table: "ingridientInRecipes",
                 column: "RecipeId");
 
             migrationBuilder.CreateIndex(
@@ -332,7 +332,7 @@ namespace Quhinja.Data.Migrations
         protected override void Down(MigrationBuilder migrationBuilder)
         {
             migrationBuilder.DropTable(
-                name: "Indgridients");
+                name: "ingridientInRecipes");
 
             migrationBuilder.DropTable(
                 name: "MenuItems");
@@ -353,6 +353,9 @@ namespace Quhinja.Data.Migrations
                 name: "UserTokens");
 
             migrationBuilder.DropTable(
+                name: "Indgridients");
+
+            migrationBuilder.DropTable(
                 name: "Recipes");
 
             migrationBuilder.DropTable(
@@ -363,9 +366,6 @@ namespace Quhinja.Data.Migrations
 
             migrationBuilder.DropTable(
                 name: "Dishes");
-
-            migrationBuilder.DropTable(
-                name: "DishTypes");
         }
     }
 }

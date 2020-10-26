@@ -7,14 +7,15 @@ using System.Text;
 
 namespace Quhinja.Data.Configuration.EntitiesConfiguration
 {
-    class DishTypeConfiguration : IEntityTypeConfiguration<DishType>
+    class IngridientInRecipeConfiguration : IEntityTypeConfiguration<IngridientInRecipe>
     {
-        public void Configure(EntityTypeBuilder<DishType> builder)
+        public void Configure(EntityTypeBuilder<IngridientInRecipe> builder)
         {
-            builder.Property(dish => dish.Name)
-                  .IsRequired(true)
+            builder.Property(ing => ing.Quantity)
+                  .IsRequired()
                   .HasMaxLength(50);
 
         }
+               
     }
- }
+        }

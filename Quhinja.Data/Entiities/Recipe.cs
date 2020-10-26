@@ -10,7 +10,7 @@ namespace Quhinja.Data.Entiities
 
         public string Name { get; set; }
 
-        public ICollection<Ingridient> Ingridients { get; set; }
+        public ICollection<IngridientInRecipe> Ingridients { get; set; }
 
         public Dish Dish { get; set; }
 

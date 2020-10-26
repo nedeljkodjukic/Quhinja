@@ -1,3 +1,5 @@
+using System.Collections.Generic;
+
 namespace Quhinja.Data.Entiities
 {
     public class Ingridient
@@ -6,11 +8,8 @@ namespace Quhinja.Data.Entiities
 
         public string Name { get; set; }
 
-        public int Quantity { get; set; }
+        public ICollection<IngridientInRecipe> Recipes { get; set; }
 
-        public int RecipeId { get; set; }
-
-        public Recipe Recipe { get; set; }
 
     }
 }

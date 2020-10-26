@@ -33,7 +33,7 @@ namespace Quhinja.WebApi
         {
             services.AddControllers();
 
-            services.AddAutoMapper(typeof(IDishTypeService))
+            services.AddAutoMapper(typeof(IIngridientService))
                 .AddDbContext<QuhinjaDbContext>(options =>
                 options.UseSqlServer(Configuration.GetConnectionString("DefaultConnection")))
                 .AddBusinessLogicServices(Configuration);
