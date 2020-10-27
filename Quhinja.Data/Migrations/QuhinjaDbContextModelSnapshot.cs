@@ -188,7 +188,7 @@ namespace Quhinja.Data.Migrations
 
                     b.HasIndex("RecipeId");
 
-                    b.ToTable("ingridientInRecipes");
+                    b.ToTable("IngridientInRecipes");
                 });
 
             modelBuilder.Entity("Quhinja.Data.Entiities.MenuItem", b =>
@@ -218,6 +218,9 @@ namespace Quhinja.Data.Migrations
                         .HasColumnType("int")
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
+                    b.Property<int?>("AverageRatings")
+                        .HasColumnType("int");
+
                     b.Property<int>("DishId")
                         .HasColumnType("int");
 
@@ -225,7 +228,19 @@ namespace Quhinja.Data.Migrations
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
+                    b.Property<int?>("NumberOfVoters")
+                        .HasColumnType("int");
+
+                    b.Property<string>("Picture")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("PreparationTime")
+                        .HasColumnType("nvarchar(max)");
+
                     b.Property<string>("Preview")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("WayOfPreparing")
                         .HasColumnType("nvarchar(max)");
 
                     b.HasKey("Id");

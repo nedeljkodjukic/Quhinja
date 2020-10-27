@@ -24,8 +24,7 @@ namespace Quhinja.Data.Configuration.EntitiesConfiguration
             builder.Property(dish => dish.Description)
                 .IsRequired(false);
 
-            //builder.HasIndex(reg => reg.Name)
-            //        .IsUnique();
+         
 
 
             builder.HasMany(dish => dish.Recipes)

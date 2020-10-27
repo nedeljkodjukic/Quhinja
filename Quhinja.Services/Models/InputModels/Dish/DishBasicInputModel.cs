@@ -1,9 +1,10 @@
-using System.Collections;
+﻿using System;
 using System.Collections.Generic;
+using System.Text;
 
-namespace Quhinja.Data.Entiities
+namespace Quhinja.Services.Models.InputModels.Dish
 {
-    public class Dish
+    public class DishBasicInputModel
     {
         public int Id { get; set; }
 
@@ -13,16 +14,7 @@ namespace Quhinja.Data.Entiities
 
         public string Description { get; set; }
 
-        public ICollection<Recipe> Recipes { get; set; }
-
-        
-
         public string DishType { get; set; }
-
-
-
-
-
 
     }
 }

@@ -49,5 +49,15 @@ namespace Quhinja.WebApi.Controllers
                 return BadRequest(ModelState.Values.SelectMany(x => x.Errors).Select(x => x.ErrorMessage).ToList());
         }
 
+        [AllowAnonymous]
+        [HttpDelete]
+        [Route("{id}")]
+
+        public async Task<ActionResult> RemoveIngridientAsync(int id)
+        {
+            await ingridientService.RemoveIngridientAsync(id);
+            return Ok();
+        }
+
     }
 }

@@ -10,8 +10,8 @@ using Quhinja.Data;
 namespace Quhinja.Data.Migrations
 {
     [DbContext(typeof(QuhinjaDbContext))]
-    [Migration("20201026163322_v3")]
-    partial class v3
+    [Migration("20201027163505_initial8")]
+    partial class initial8
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -190,7 +190,7 @@ namespace Quhinja.Data.Migrations
 
                     b.HasIndex("RecipeId");
 
-                    b.ToTable("ingridientInRecipes");
+                    b.ToTable("IngridientInRecipes");
                 });
 
             modelBuilder.Entity("Quhinja.Data.Entiities.MenuItem", b =>
@@ -220,6 +220,9 @@ namespace Quhinja.Data.Migrations
                         .HasColumnType("int")
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
+                    b.Property<int?>("AverageRatings")
+                        .HasColumnType("int");
+
                     b.Property<int>("DishId")
                         .HasColumnType("int");
 
@@ -227,7 +230,19 @@ namespace Quhinja.Data.Migrations
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
+                    b.Property<int?>("NumberOfVoters")
+                        .HasColumnType("int");
+
+                    b.Property<string>("Picture")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("PreparationTime")
+                        .HasColumnType("nvarchar(max)");
+
                     b.Property<string>("Preview")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("WayOfPreparing")
                         .HasColumnType("nvarchar(max)");
 
                     b.HasKey("Id");

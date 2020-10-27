@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using AutoMapper;
+using Azure.Storage.Blobs;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.HttpsPolicy;
@@ -14,6 +15,7 @@ using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Logging;
 using Microsoft.OpenApi.Models;
 using Quhinja.Data;
+using Quhinja.Services.Implementations;
 using Quhinja.Services.Interfaces;
 using Quhinja.WebApi.Helpers;
 
@@ -42,6 +44,10 @@ namespace Quhinja.WebApi
             {
                 x.SwaggerDoc("v1", new OpenApiInfo { Title = "Quhinja API", Version = "v1" });
             });
+
+            services.AddSingleton(x =>
+                new BlobServiceClient(Configuration.GetConnectionString("AzureBlobStorageConnection")));
+            services.AddScoped<IBlobService, BlobService>();
 
         }
 

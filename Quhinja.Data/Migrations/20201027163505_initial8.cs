@@ -3,7 +3,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 
 namespace Quhinja.Data.Migrations
 {
-    public partial class v2 : Migration
+    public partial class initial8 : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
@@ -24,7 +24,7 @@ namespace Quhinja.Data.Migrations
                 });
 
             migrationBuilder.CreateTable(
-                name: "Indgridients",
+                name: "Ingridients",
                 columns: table => new
                 {
                     Id = table.Column<int>(nullable: false)
@@ -33,7 +33,7 @@ namespace Quhinja.Data.Migrations
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_Indgridients", x => x.Id);
+                    table.PrimaryKey("PK_Ingridients", x => x.Id);
                 });
 
             migrationBuilder.CreateTable(
@@ -59,8 +59,13 @@ namespace Quhinja.Data.Migrations
                     Id = table.Column<int>(nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
                     Name = table.Column<string>(nullable: false),
+                    Picture = table.Column<string>(nullable: true),
                     DishId = table.Column<int>(nullable: false),
-                    Preview = table.Column<string>(nullable: true)
+                    WayOfPreparing = table.Column<string>(nullable: true),
+                    Preview = table.Column<string>(nullable: true),
+                    AverageRatings = table.Column<int>(nullable: true),
+                    NumberOfVoters = table.Column<int>(nullable: true),
+                    PreparationTime = table.Column<string>(nullable: true)
                 },
                 constraints: table =>
                 {
@@ -134,7 +139,7 @@ namespace Quhinja.Data.Migrations
                 });
 
             migrationBuilder.CreateTable(
-                name: "ingridientInRecipes",
+                name: "IngridientInRecipes",
                 columns: table => new
                 {
                     Id = table.Column<int>(nullable: false)
@@ -145,15 +150,15 @@ namespace Quhinja.Data.Migrations
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_ingridientInRecipes", x => x.Id);
+                    table.PrimaryKey("PK_IngridientInRecipes", x => x.Id);
                     table.ForeignKey(
-                        name: "FK_ingridientInRecipes_Indgridients_IngridientId",
+                        name: "FK_IngridientInRecipes_Ingridients_IngridientId",
                         column: x => x.IngridientId,
-                        principalTable: "Indgridients",
+                        principalTable: "Ingridients",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
                     table.ForeignKey(
-                        name: "FK_ingridientInRecipes_Recipes_RecipeId",
+                        name: "FK_IngridientInRecipes_Recipes_RecipeId",
                         column: x => x.RecipeId,
                         principalTable: "Recipes",
                         principalColumn: "Id");
@@ -265,13 +270,13 @@ namespace Quhinja.Data.Migrations
                 });
 
             migrationBuilder.CreateIndex(
-                name: "IX_ingridientInRecipes_IngridientId",
-                table: "ingridientInRecipes",
+                name: "IX_IngridientInRecipes_IngridientId",
+                table: "IngridientInRecipes",
                 column: "IngridientId");
 
             migrationBuilder.CreateIndex(
-                name: "IX_ingridientInRecipes_RecipeId",
-                table: "ingridientInRecipes",
+                name: "IX_IngridientInRecipes_RecipeId",
+                table: "IngridientInRecipes",
                 column: "RecipeId");
 
             migrationBuilder.CreateIndex(
@@ -332,7 +337,7 @@ namespace Quhinja.Data.Migrations
         protected override void Down(MigrationBuilder migrationBuilder)
         {
             migrationBuilder.DropTable(
-                name: "ingridientInRecipes");
+                name: "IngridientInRecipes");
 
             migrationBuilder.DropTable(
                 name: "MenuItems");
@@ -353,7 +358,7 @@ namespace Quhinja.Data.Migrations
                 name: "UserTokens");
 
             migrationBuilder.DropTable(
-                name: "Indgridients");
+                name: "Ingridients");
 
             migrationBuilder.DropTable(
                 name: "Recipes");

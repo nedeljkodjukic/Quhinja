@@ -39,7 +39,7 @@ namespace Quhinja.Services.Implementations
 
         public async Task<IngridientBasicOutputModel> GetIngridientByIdAsync(int id)
         {
-            var ing = await data.Ingridients.Include(ing => ing.Recipes).ThenInclude(r => r.Recipe).SingleOrDefaultAsync(ing => ing.Id == id);
+            var ing = await data.Ingridients.Include(ingridient => ingridient.Recipes).ThenInclude(r => r.Recipe).SingleOrDefaultAsync(inggr => inggr.Id == id);
             if (ing != null)
             {
                 return mapper.Map<IngridientBasicOutputModel>(ing);
@@ -52,6 +52,19 @@ namespace Quhinja.Services.Implementations
             return  await data.Ingridients.Include(ing => ing.Recipes).ThenInclude(r => r.Recipe)
                .Select(r => mapper.Map<IngridientBasicOutputModel>(r))
                .ToListAsync();
+        }
+
+        public async Task RemoveIngridientAsync(int ingridientId)
+        {
+            var ingridientInDb = await data.Ingridients
+             .Include(ing => ing.Recipes)
+             .SingleOrDefaultAsync(ing => ing.Id == ingridientId);
+
+            if (ingridientInDb != null)//Brisanje sastojaka iz svih recepata
+            {
+                data.Ingridients.Remove(ingridientInDb);
+                data.SaveChanges();
+            }
         }
     }
 }
