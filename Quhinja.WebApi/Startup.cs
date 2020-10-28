@@ -33,12 +33,16 @@ namespace Quhinja.WebApi
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
-            services.AddControllers();
+            services.AddControllers(); 
+           
 
             services.AddAutoMapper(typeof(IIngridientService))
                 .AddDbContext<QuhinjaDbContext>(options =>
                 options.UseSqlServer(Configuration.GetConnectionString("DefaultConnection")))
                 .AddBusinessLogicServices(Configuration);
+
+            services.AddIdentity()
+                .AddJwtAuthorization(Configuration);
 
             services.AddSwaggerGen(x =>
             {
@@ -81,6 +85,9 @@ namespace Quhinja.WebApi
                     .AllowAnyOrigin()
                     .AllowAnyHeader()
                     .AllowAnyMethod());
+
+
+            app.UseAuthentication();
 
             app.UseAuthorization();
 

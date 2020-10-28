@@ -23,7 +23,7 @@ namespace Quhinja.Data.Entiities
         public string Preview { get; set; }
 
         public int? AverageRatings { get; set; }
-         
+         //dodaj tabelu vise prema vise ocena
         public int? NumberOfVoters { get; set; }
 
         public ICollection<MenuItem> MenuItems { get; set; }

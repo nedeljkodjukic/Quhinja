@@ -3,15 +3,17 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using Quhinja.Data;
 
 namespace Quhinja.Data.Migrations
 {
     [DbContext(typeof(QuhinjaDbContext))]
-    partial class QuhinjaDbContextModelSnapshot : ModelSnapshot
+    [Migration("20201028185420_AddedDishId")]
+    partial class AddedDishId
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -306,15 +308,15 @@ namespace Quhinja.Data.Migrations
                         .IsRequired()
                         .HasColumnType("datetime2");
 
+                    b.Property<int>("DishId")
+                        .HasColumnType("int");
+
                     b.Property<string>("Email")
                         .HasColumnType("nvarchar(256)")
                         .HasMaxLength(256);
 
                     b.Property<bool>("EmailConfirmed")
                         .HasColumnType("bit");
-
-                    b.Property<int?>("FavouriteDishId")
-                        .HasColumnType("int");
 
                     b.Property<int?>("Gender")
                         .HasColumnType("int");
@@ -370,7 +372,7 @@ namespace Quhinja.Data.Migrations
 
                     b.HasKey("Id");
 
-                    b.HasIndex("FavouriteDishId");
+                    b.HasIndex("DishId");
 
                     b.HasIndex("NormalizedEmail")
                         .HasName("EmailIndex");
@@ -471,7 +473,9 @@ namespace Quhinja.Data.Migrations
                 {
                     b.HasOne("Quhinja.Data.Entiities.Dish", "FavouriteDish")
                         .WithMany()
-                        .HasForeignKey("FavouriteDishId");
+                        .HasForeignKey("DishId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
                 });
 #pragma warning restore 612, 618
         }

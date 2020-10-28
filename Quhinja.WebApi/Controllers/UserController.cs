@@ -5,6 +5,7 @@ using Quhinja.Services.Models.OutputModels.User;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Security.Claims;
 using System.Threading.Tasks;
 
 namespace Quhinja.WebApi.Controllers
@@ -33,7 +34,11 @@ namespace Quhinja.WebApi.Controllers
         [Route("{id}")]
         public async Task<ActionResult<UserInfoOutputModel>> GetUserAsync([FromRoute] int id)
         {
-          
+            if (id == 0)
+            {
+                var userIdstring = this.User.Claims.First(x => x.Type == ClaimTypes.NameIdentifier).Value;
+                int.TryParse(userIdstring, out id);
+            }
             var user = await userService.GetUserAsync(id);
             return Ok(user);
         }

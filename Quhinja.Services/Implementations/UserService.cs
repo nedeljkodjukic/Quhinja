@@ -24,11 +24,20 @@ namespace Quhinja.Services.Implementations
         }
         public async Task<UserInfoOutputModel> GetUserAsync(int id)
         {
-            return await data.Users
+            var userInDb= await data.Users
                           .Include(u => u.FavouriteDish)
                           .Include(u => u.UserRoles)
-                          .Select(user => mapper.Map<UserInfoOutputModel>(user))
                           .SingleOrDefaultAsync(us => us.Id == id);
+            if (userInDb!=null)
+            {
+                var outputObject = mapper.Map<UserInfoOutputModel>(userInDb);
+                return outputObject;
+            }
+            else
+            {
+                throw new Exception("Ne postoji u bazi");
+
+            }
         }
 
         public async Task<IEnumerable<UserInfoOutputModel>> GetUsers()
@@ -47,7 +56,7 @@ namespace Quhinja.Services.Implementations
             userInDb.Name = model.Name;
             userInDb.Surname = model.Surname;
             userInDb.Position = model.Position;
-            userInDb.DishId = model.DishId;
+            userInDb.FavouriteDishId = model.FavouriteDishId;
             
 
             data.SaveChanges();

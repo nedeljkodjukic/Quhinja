@@ -22,6 +22,6 @@ namespace Quhinja.Services.Models.InputModels.User
 
         public IEnumerable<int> UserRoles { get; set; }
 
-        public int DishId { get; set; }
+        public int FavouriteDishId { get; set; }
     }
 }
