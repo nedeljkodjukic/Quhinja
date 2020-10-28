@@ -2,6 +2,7 @@
 using System;
 using System.Collections.Generic;
 using System.Text;
+using System.Text.Json.Serialization;
 
 namespace Quhinja.Services.Models.OutputModels.Ingridient
 {
@@ -15,7 +16,7 @@ namespace Quhinja.Services.Models.OutputModels.Ingridient
         public int RecipeId { get; set; }
 
         public string Quantity { get; set; }
-        
-       // public RecipeBasicOutputModel Recipe { get; set; }
+       [JsonIgnore]
+        public RecipeBasicOutputModel Recipe { get; set; }
     }
 }

@@ -15,7 +15,8 @@ namespace Quhinja.WebApi.Helpers
             return services.AddScoped<IIngridientService, IngridientService>()
                    .AddScoped<IDishService, DishService>()
                    .AddScoped<IRecipeService, RecipeService>()
-                   .AddScoped<IMenuItemService, MenuItemService>();
+                   .AddScoped<IMenuItemService, MenuItemService>()
+            .AddScoped<IUserService, UserService>();
 
             ;
         }

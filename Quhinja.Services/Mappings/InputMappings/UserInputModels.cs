@@ -11,7 +11,6 @@ namespace Quhinja.Services.Mappings.InputMappings
         {
             CreateMap<UserBasicInputModel, User>().
                 ForMember(u => u.Gender, opt => opt.MapFrom(u => u.Gender));
-
             CreateMap<UserLoginInputModel, User>();
         }
 

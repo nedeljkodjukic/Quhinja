@@ -48,7 +48,7 @@ namespace Quhinja.Services.Implementations
 
         var blobClient = containerClient.GetBlobClient($"{Guid.NewGuid()}{fileContentType}");
 
-       // var response = await blobClient.UploadAsync(filePath);
+        var response = await blobClient.UploadAsync(filePath);
 
         return blobClient.Uri.AbsoluteUri;
     }
