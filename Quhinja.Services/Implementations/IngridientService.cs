@@ -37,6 +37,28 @@ namespace Quhinja.Services.Implementations
             return ing.Id;
         }
 
+        public async Task<int> AddIngridientToRecipeAsync(IngridientsInRecipeBasicInputModel model)
+        {////ne radi
+            if (model == null)
+            {
+                throw new ArgumentNullException(nameof(model));
+            }
+            var ing = mapper.Map<IngridientInRecipe>(model);
+            Ingridient IngId =await data.Ingridients.Include(i=>i.Recipes).SingleOrDefaultAsync(inggr => inggr.Name == model.Ingridient.Name);
+            Recipe Recipe1 = await data.Recipes.Include(r=>r.Ingridients).SingleOrDefaultAsync(r => r.Id == model.RecipeId);
+            ing.RecipeId = Recipe1.Id;
+            ing.IngridientId = IngId.Id;
+            ing.Quantity = model.Quantity;
+            ing.Recipe = Recipe1;
+            ing.Ingridient = IngId;
+
+            await data.IngridientInRecipes.AddAsync(ing);
+
+
+            data.SaveChanges();
+            return ing.Id;
+        }
+
         public async Task<IngridientBasicOutputModel> GetIngridientByIdAsync(int id)
         {
             var ing = await data.Ingridients.Include(ingridient => ingridient.Recipes).ThenInclude(r => r.Recipe).SingleOrDefaultAsync(inggr => inggr.Id == id);

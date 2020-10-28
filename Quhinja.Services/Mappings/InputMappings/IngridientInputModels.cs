@@ -12,6 +12,7 @@ namespace Quhinja.Services.Mappings.InputMappings
         public IngridientInputModels()
         {
             CreateMap<IngridientBasicInputModel, Ingridient>();
+            CreateMap<IngridientsInRecipeBasicInputModel, IngridientInRecipe>();
 
         }
     }

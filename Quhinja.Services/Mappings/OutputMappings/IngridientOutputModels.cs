@@ -12,6 +12,8 @@ namespace Quhinja.Services.Mappings.OutputMappings
         public IngridientOutputModels()
         {
             CreateMap<Ingridient, IngridientBasicOutputModel>();
+
+            CreateMap<IngridientInRecipe, IngridientsInRecipeBasicOutputModel>();
         }
 
     }

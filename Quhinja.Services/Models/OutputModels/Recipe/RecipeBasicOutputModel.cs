@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Quhinja.Services.Models.OutputModels.Ingridient;
+using System;
 using System.Collections.Generic;
 using System.Text;
 
@@ -16,5 +17,8 @@ namespace Quhinja.Services.Models.OutputModels.Recipe
         public string Picture { get; set; }
 
        public int? AverageRatings { get; set; }
+
+        public IEnumerable<IngridientsInRecipeBasicOutputModel> Ingridients { get; set; }
+
     }
 }

@@ -16,6 +16,11 @@ namespace Quhinja.Data.Configuration.EntitiesConfiguration
                   .IsRequired()
                   .HasMaxLength(50);
 
+            builder.HasMany(ing => ing.Recipes)
+               .WithOne(recipe => recipe.Ingridient)
+               .HasForeignKey(recipe => recipe.IngridientId)
+               .OnDelete(DeleteBehavior.NoAction);
+
         }
     }
 }

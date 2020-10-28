@@ -35,15 +35,24 @@ namespace Quhinja.WebApi.Controllers
 
         [AllowAnonymous]
         [HttpGet]
-        public async Task<ActionResult<ICollection<DishBasicOutputModel>>> GetRegionsAsync()
+        public async Task<ActionResult<ICollection<DishBasicOutputModel>>> GetDishesAsync()
         {
             var dishOutputModel = await dishService.GetDishesAsync();
             return Ok(dishOutputModel);
         }
 
         [AllowAnonymous]
+        [HttpGet]
+        [Route("withRecipes")]
+        public async Task<ActionResult<ICollection<DishWithRecipesOutputModel>>> GetDishesWithRecipesAsync()
+        {
+            var dishOutputModel = await dishService.GetDishesWithRecipesAsync();
+            return Ok(dishOutputModel);
+        }
+
+        [AllowAnonymous]
         [HttpPost]
-        public async Task<ActionResult<int>> AddIngrdientAsync([FromBody] DishBasicInputModel dishInputModel)
+        public async Task<ActionResult<int>> AddDishAsync([FromBody] DishBasicInputModel dishInputModel)
         {
             if (ModelState.IsValid)
             {

@@ -15,6 +15,8 @@ namespace Quhinja.Services.Interfaces
 
         Task<int> AddIngridientAsync(IngridientBasicInputModel model);
 
+        Task<int> AddIngridientToRecipeAsync(IngridientsInRecipeBasicInputModel model);
+
         Task RemoveIngridientAsync(int ingridientId);
 
 

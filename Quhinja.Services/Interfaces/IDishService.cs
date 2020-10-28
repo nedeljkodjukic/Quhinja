@@ -12,6 +12,8 @@ namespace Quhinja.Services.Interfaces
         Task<DishBasicOutputModel> GetDishByIdAsync(int id);
         Task<ICollection<DishBasicOutputModel>> GetDishesAsync();
 
+        Task<ICollection<DishWithRecipesOutputModel>> GetDishesWithRecipesAsync();
+
         Task<int> AddDishAsync(DishBasicInputModel model);
 
         Task RemoveDishAsync(int dishId);

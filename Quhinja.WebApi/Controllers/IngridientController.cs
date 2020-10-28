@@ -30,7 +30,7 @@ namespace Quhinja.WebApi.Controllers
 
         [AllowAnonymous]
         [HttpGet]
-        public async Task<ActionResult<ICollection<IngridientBasicOutputModel>>> GetRegionsAsync()
+        public async Task<ActionResult<ICollection<IngridientBasicOutputModel>>> GetIngridientsAsync()
         {
             var ingridientOutputModel = await ingridientService.GetIngridientsAsync();
             return Ok(ingridientOutputModel);
@@ -43,6 +43,21 @@ namespace Quhinja.WebApi.Controllers
             if (ModelState.IsValid)
             {
                 var id = await ingridientService.AddIngridientAsync(ingridientInputModel);
+                return Ok(id);
+            }
+            else
+                return BadRequest(ModelState.Values.SelectMany(x => x.Errors).Select(x => x.ErrorMessage).ToList());
+
+        }
+
+        [AllowAnonymous]
+        [HttpPost]
+        [Route("addIngridient")]
+        public async Task<ActionResult<int>> AddIngrdientToRecipeAsync([FromBody] IngridientsInRecipeBasicInputModel ingridientInputModel)
+        {
+            if (ModelState.IsValid)
+            {
+                var id = await ingridientService.AddIngridientToRecipeAsync(ingridientInputModel);
                 return Ok(id);
             }
             else
