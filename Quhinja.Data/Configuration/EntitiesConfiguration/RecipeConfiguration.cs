@@ -18,17 +18,17 @@ namespace Quhinja.Data.Configuration.EntitiesConfiguration
             builder.Property(rec => rec.Preview)
                 .IsRequired(false);
 
-            builder.Property(rec => rec.AverageRatings)
-              .IsRequired(false);
-
-          builder.Property(rec => rec.NumberOfVoters)
-                .IsRequired(false);
+            
 
             builder.HasMany(recipe => recipe.Ingridients)
                 .WithOne(ing => ing.Recipe)
                 .HasForeignKey(ing => ing.RecipeId)
                 .OnDelete(DeleteBehavior.NoAction);
 
+            builder.HasMany(recipe => recipe.UsersRatings)
+                .WithOne(rat => rat.Recipe)
+                .HasForeignKey(rat => rat.RecipeId)
+                .OnDelete(DeleteBehavior.NoAction);
                 
 
         }

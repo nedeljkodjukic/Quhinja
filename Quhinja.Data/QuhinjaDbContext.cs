@@ -2,6 +2,7 @@ using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
 using Quhinja.Data.Configuration;
 using Quhinja.Data.Entiities;
+using Quhinja.Data.Entiities.Quhinja.Data.Entiities;
 using Quhinja.Data.Entities;
 
 namespace Quhinja.Data
@@ -16,10 +17,9 @@ namespace Quhinja.Data
 
         public DbSet<Recipe> Recipes { get; set; }
 
-    public DbSet <IngridientInRecipe> IngridientInRecipes { get; set; }
-        //public DbSet<Role> Roles { get; set; }
+        public DbSet<IngridientInRecipe> IngridientInRecipes { get; set; }
 
-        //public DbSet<User> Users { get; set; }
+        public DbSet<UsersRatingForRecipe> UsersRatingForRecipes { get; set; }
 
         public QuhinjaDbContext(DbContextOptions<QuhinjaDbContext> options)
             : base(options)

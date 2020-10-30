@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System;
 using Quhinja.Data.Entiities.Enums;
 using Quhinja.Data.Entiities;
+using Quhinja.Data.Entiities.Quhinja.Data.Entiities;
 
 namespace Quhinja.Data.Entities
 {
@@ -14,6 +15,9 @@ namespace Quhinja.Data.Entities
         public string Surname { get; set; }
 
         public Gender? Gender { get; set; }
+
+        public ICollection<UsersRatingForRecipe> RatingsInRecipes { get; set; }
+
 
         public DateTime? DateOfBirth { get; set; }
 

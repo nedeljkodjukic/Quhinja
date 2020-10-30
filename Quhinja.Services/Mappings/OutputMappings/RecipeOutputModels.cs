@@ -1,5 +1,6 @@
 ﻿using AutoMapper;
 using Quhinja.Data.Entiities;
+using Quhinja.Data.Entiities.Quhinja.Data.Entiities;
 using Quhinja.Services.Models.OutputModels.Recipe;
 using System;
 using System.Collections.Generic;
@@ -11,10 +12,11 @@ namespace Quhinja.Services.Mappings.OutputMappings
     {
         public RecipeOutputModels()
     {
-        CreateMap<Recipe, RecipeBasicOutputModel>().
-                ForMember(rr => rr.AverageRatings, opt => opt.MapFrom(r => r.AverageRatings));
+            CreateMap<Recipe, RecipeBasicOutputModel>();
 
             CreateMap<Recipe, RecipeWithDishOutputModel>();
+
+            CreateMap<UsersRatingForRecipe, UsersRatingsForRecipeOutputModel>();
 
         }
 
