@@ -14,16 +14,16 @@ namespace Quhinja.WebApi.Controllers
     {
         private readonly IIdentityService identityService;
         private readonly IConfiguration configuration;
-       // private readonly IEmailSender emailSender;
+       private readonly IEmailSender emailSender;
 
         public IdentityController(
             IIdentityService identityService,
-            IConfiguration configuration
+            IConfiguration configuration,IEmailSender emailSender
           )
         {
             this.identityService = identityService;
             this.configuration = configuration;
-          //  this.emailSender = emailSender;
+           this.emailSender = emailSender;
         }
 
 
@@ -93,7 +93,7 @@ namespace Quhinja.WebApi.Controllers
 
             var emailContent = GenerateResetPasswordEmailContent(email, resetCode);
 
-          //  await emailSender.SendEmailAsync(email, "Resetovanje šifre", emailContent);
+            await emailSender.SendEmailAsync(email, "Resetovanje šifre", emailContent);
 
             return Ok();
         }
