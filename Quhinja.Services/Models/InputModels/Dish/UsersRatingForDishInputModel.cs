@@ -4,9 +4,9 @@ using System.Text;
 
 namespace Quhinja.Services.Models.InputModels.Recipe
 {
-     public class UsersRatingForRecipeInputModel
+     public class UsersRatingForDishInputModel
     {
-        public int RecipeId { get; set; }
+        public int DishId { get; set; }
 
         public int UserId { get; set; }
 

@@ -25,10 +25,7 @@ namespace Quhinja.Data.Configuration.EntitiesConfiguration
                 .HasForeignKey(ing => ing.RecipeId)
                 .OnDelete(DeleteBehavior.NoAction);
 
-            builder.HasMany(recipe => recipe.UsersRatings)
-                .WithOne(rat => rat.Recipe)
-                .HasForeignKey(rat => rat.RecipeId)
-                .OnDelete(DeleteBehavior.NoAction);
+           
                 
 
         }

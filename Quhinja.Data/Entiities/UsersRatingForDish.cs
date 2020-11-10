@@ -4,7 +4,7 @@
 
     namespace Quhinja.Data.Entiities
     {
-        public class UsersRatingForRecipe
+        public class UsersRatingForDish
         {
 
             public int Id { get; set; }
@@ -12,10 +12,10 @@
 
             public User User { get; set; }
 
-            public int RecipeId { get; set; }
+            public int DishId { get; set; }
 
 
-            public Recipe Recipe { get; set; }
+            public Dish Dish { get; set; }
 
             public int Rating { get; set; }
         }

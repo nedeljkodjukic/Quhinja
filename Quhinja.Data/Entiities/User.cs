@@ -16,7 +16,7 @@ namespace Quhinja.Data.Entities
 
         public Gender? Gender { get; set; }
 
-        public ICollection<UsersRatingForRecipe> RatingsInRecipes { get; set; }
+        public ICollection<UsersRatingForDish> RatingsInDishes { get; set; }
 
 
         public DateTime? DateOfBirth { get; set; }

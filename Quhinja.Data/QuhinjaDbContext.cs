@@ -19,7 +19,7 @@ namespace Quhinja.Data
 
         public DbSet<IngridientInRecipe> IngridientInRecipes { get; set; }
 
-        public DbSet<UsersRatingForRecipe> UsersRatingForRecipes { get; set; }
+        public DbSet<UsersRatingForDish> UsersRatingForDishes { get; set; }
 
         public QuhinjaDbContext(DbContextOptions<QuhinjaDbContext> options)
             : base(options)

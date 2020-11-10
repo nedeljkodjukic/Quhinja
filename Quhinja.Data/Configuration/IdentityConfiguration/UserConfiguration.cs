@@ -36,7 +36,7 @@ namespace Quhinja.Data.Configuration.IdentityConfiguration
                 .WithOne()
                 .HasForeignKey(ur => ur.UserId);
 
-            builder.HasMany(u => u.RatingsInRecipes)
+            builder.HasMany(u => u.RatingsInDishes)
                 .WithOne(rat => rat.User)
                 .HasForeignKey(rat => rat.UserId)
                 .OnDelete(DeleteBehavior.NoAction);

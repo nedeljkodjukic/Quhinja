@@ -15,5 +15,7 @@ namespace Quhinja.Services.Models.OutputModels.Dish
         public string Description { get; set; }
 
         public string DishType { get; set; }
+
+        public int selectedRecipe { get; set; }
     }
 }

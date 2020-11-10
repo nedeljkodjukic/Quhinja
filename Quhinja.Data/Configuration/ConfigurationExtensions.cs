@@ -36,7 +36,7 @@ namespace Quhinja.Data.Configuration
               .ApplyConfiguration(new IngridientConfiguration())
               .ApplyConfiguration(new MenuItemConfiguration())
               .ApplyConfiguration(new RecipeConfiguration())
-            .ApplyConfiguration(new UsersRatingForRecipeConfiguration());
+            .ApplyConfiguration(new UsersRatingForDishConfiguration());
             
               }
     }

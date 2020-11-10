@@ -14,7 +14,6 @@ namespace Quhinja.Services.Mappings.InputMappings
         {
             CreateMap<RecipeBasicInputModel, Recipe>();
 
-            CreateMap<UsersRatingForRecipeInputModel, UsersRatingForRecipe>();
                 
 
 

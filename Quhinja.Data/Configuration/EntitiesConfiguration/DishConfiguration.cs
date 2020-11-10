@@ -24,13 +24,19 @@ namespace Quhinja.Data.Configuration.EntitiesConfiguration
             builder.Property(dish => dish.Description)
                 .IsRequired(false);
 
-         
+            builder.Property(dish => dish.selectedRecipe)
+                  .IsRequired(false);
 
 
             builder.HasMany(dish => dish.Recipes)
                 .WithOne(recipe => recipe.Dish)
                 .HasForeignKey(recipe => recipe.DishId)
                 .OnDelete(DeleteBehavior.NoAction);
+
+            builder.HasMany(dish => dish.UsersRatings)
+               .WithOne(rat => rat.Dish)
+               .HasForeignKey(rat => rat.DishId)
+               .OnDelete(DeleteBehavior.NoAction);
 
         }
 

@@ -7,9 +7,9 @@ using System.Text;
 
 namespace Quhinja.Data.Configuration.EntitiesConfiguration
 {
-    public class UsersRatingForRecipeConfiguration : IEntityTypeConfiguration<UsersRatingForRecipe>
+    public class UsersRatingForDishConfiguration : IEntityTypeConfiguration<UsersRatingForDish>
     {
-        public void Configure(EntityTypeBuilder<UsersRatingForRecipe> builder)
+        public void Configure(EntityTypeBuilder<UsersRatingForDish> builder)
         {
             builder.Property(ing => ing.Rating)
                   .IsRequired(true);

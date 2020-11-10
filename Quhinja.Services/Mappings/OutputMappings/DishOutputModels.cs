@@ -1,9 +1,8 @@
 ﻿using AutoMapper;
 using Quhinja.Data.Entiities;
+using Quhinja.Data.Entiities.Quhinja.Data.Entiities;
 using Quhinja.Services.Models.OutputModels.Dish;
-using System;
-using System.Collections.Generic;
-using System.Text;
+using Quhinja.Services.Models.OutputModels.Recipe;
 
 namespace Quhinja.Services.Mappings.OutputMappings
 {
@@ -14,6 +13,8 @@ namespace Quhinja.Services.Mappings.OutputMappings
             CreateMap<Dish, DishWithRecipesOutputModel>();
 
             CreateMap<Dish,DishBasicOutputModel>();
+
+            CreateMap<UsersRatingForDish, UsersRatingsForDishOutputModel>();
         }
     }
 }

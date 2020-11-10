@@ -16,7 +16,7 @@ namespace Quhinja.Services.Mappings.OutputMappings
 
             CreateMap<Recipe, RecipeWithDishOutputModel>();
 
-            CreateMap<UsersRatingForRecipe, UsersRatingsForRecipeOutputModel>();
+          
 
         }
 

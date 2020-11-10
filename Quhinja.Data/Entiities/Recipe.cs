@@ -13,7 +13,6 @@ namespace Quhinja.Data.Entiities
 
         public string Picture { get; set; }//sa vise slika????
 
-        public ICollection<UsersRatingForRecipe> UsersRatings { get; set; }
 
 
         public ICollection<IngridientInRecipe> Ingridients { get; set; }
