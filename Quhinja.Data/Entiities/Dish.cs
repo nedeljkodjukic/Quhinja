@@ -16,7 +16,9 @@ namespace Quhinja.Data.Entiities
 
         public ICollection<Recipe> Recipes { get; set; }
 
-        public int? selectedRecipe { get; set; }
+        public int selectedRecipeId { get; set; }
+
+        public Recipe selectedRecipe { get; set; }
         public ICollection<UsersRatingForDish> UsersRatings { get; set; }
 
         public string DishType { get; set; }

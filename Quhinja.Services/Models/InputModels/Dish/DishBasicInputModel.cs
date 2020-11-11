@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Quhinja.Services.Models.InputModels.Recipe;
+using System;
 using System.Collections.Generic;
 using System.Text;
 
@@ -14,7 +15,9 @@ namespace Quhinja.Services.Models.InputModels.Dish
 
         public string Description { get; set; }
 
-        public int selectedRecipe { get; set; }
+        public int selectedRecipeId { get; set; }
+
+        public RecipeBasicInputModel selectedRecipe { get; set; }
 
         public string DishType { get; set; }
 

@@ -24,8 +24,7 @@ namespace Quhinja.Data.Configuration.EntitiesConfiguration
             builder.Property(dish => dish.Description)
                 .IsRequired(false);
 
-            builder.Property(dish => dish.selectedRecipe)
-                  .IsRequired(false);
+            
 
 
             builder.HasMany(dish => dish.Recipes)
