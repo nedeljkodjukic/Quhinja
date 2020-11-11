@@ -32,7 +32,6 @@ namespace Quhinja.WebApi.Controllers
             var dishOutputModel = await dishService.GetDishByIdAsync(id);
             return Ok(dishOutputModel);
         }
-
         [AllowAnonymous]
         [HttpGet]
         public async Task<ActionResult<ICollection<DishBasicOutputModel>>> GetDishesAsync()
