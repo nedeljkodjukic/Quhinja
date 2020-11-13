@@ -13,12 +13,11 @@ namespace Quhinja.Services.Implementations
     {
         private readonly BlobServiceClient blobServiceClient;
 
-    public const string ProfilePicturesContainer = "profile-pictures";
-        public const string RecipePicturesContainer = "recipe-pictures";
+        public const string ProfilePicturesContainer = "profile-pictures";
+        public const string DishPicturesContainer = "vehicle-pictures";
+        public const string RecipePicturesContainer = "vehicle-category-icons";
 
-        public const string DishPicturesContainer = "dish-pictures";
-
-    public BlobService(BlobServiceClient blobServiceClient)
+        public BlobService(BlobServiceClient blobServiceClient)
     {
         this.blobServiceClient = blobServiceClient;
     }

@@ -84,5 +84,10 @@ namespace Quhinja.Services.Implementations
              dish.Picture = path;
             data.SaveChanges();
         }
+
+        public async Task<ICollection<string>> GetDishTypesAsync()
+        {
+            return await data.Dishes.Select(x => x.DishType).Distinct().ToListAsync();
+        }
     }
 }

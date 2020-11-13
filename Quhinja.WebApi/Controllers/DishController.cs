@@ -78,15 +78,23 @@ namespace Quhinja.WebApi.Controllers
         public async Task<ActionResult> uploadDishPicture([FromRoute] int dishId)
         {
 
-            var files = this.Request.Form.Files;
-            foreach (var file in files)
-            {
-                var path = await blobService.UploadPictureAsync(file, BlobService.DishPicturesContainer);
+            var files= this.Request.Form.Files;
+        
+                var path = await blobService.UploadPictureAsync(files.First(), BlobService.DishPicturesContainer);
 
                 await dishService.AddImageToDishAsync( dishId, path);
-            }
+            
 
             return Ok();
+        }
+
+        [AllowAnonymous]
+        [HttpGet]
+        [Route("dishTypes")]
+        public async Task<ActionResult<ICollection<string>>> GetDishTypesAsync()
+        {
+            var dishTypes = await dishService.GetDishTypesAsync();
+            return Ok(dishTypes);
         }
     }
 }
