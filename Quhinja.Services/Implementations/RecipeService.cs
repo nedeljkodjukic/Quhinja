@@ -27,7 +27,7 @@ namespace Quhinja.Services.Implementations
         }
         public async Task AddImageToRecipeAsync(int recipeId, string path)
         {
-            var recipe = data.Recipes.Find(recipeId);
+            var recipe = await data.Recipes.FindAsync(recipeId);
             recipe.Picture = path;
             data.SaveChanges();
         }

@@ -82,7 +82,7 @@ namespace Quhinja.Services.Implementations
     }
         public async Task AddImageToDishAsync(int dishId, string path)
         {
-            var dish = data.Dishes.Find(dishId);
+            var dish = await data.Dishes.FindAsync(dishId);
              dish.Picture = path;
              data.SaveChanges();
         }
@@ -100,22 +100,41 @@ namespace Quhinja.Services.Implementations
                 throw new ArgumentNullException(nameof(model));
             }
             var rating = mapper.Map<UsersRatingForDish>(model);
-            await data.UsersRatingForDishes.AddAsync(rating);
-            await data.SaveChangesAsync();
 
+            var RatingFromBase =data.UsersRatingForDishes.Where(x => x.DishId == model.DishId && x.UserId == model.UserId).FirstOrDefault();
+            if (RatingFromBase == null)
+            {
+                await data.UsersRatingForDishes.AddAsync(rating);
+                await data.SaveChangesAsync();
+            }
+            else
+            {
+                RatingFromBase.Rating = model.Rating;
+                data.Update(RatingFromBase);
+
+            }
             var arrayOfRatings = await data.UsersRatingForDishes.Where(x => x.DishId == model.DishId).ToListAsync();
-            var dish = await data.Dishes.FindAsync(model.DishId);
-            int lenght = arrayOfRatings.Count();
-            float sum = 0;
-            foreach (var r in arrayOfRatings)
-                sum += r.Rating;
-            dish.averageRating = sum / lenght;
+                var dish = await data.Dishes.FindAsync(model.DishId);
+                int lenght = arrayOfRatings.Count();
+                float sum = 0;
+                foreach (var r in arrayOfRatings)
+                    sum += r.Rating;
+                dish.averageRating = sum / lenght;
+            
+            
             await data.SaveChangesAsync();
 
             return dish.averageRating;
 
 
 
+        }
+
+        public async Task<ICollection<DishBasicOutputModel>> GetSortedDishesAsync()
+        {
+            return await data.Dishes.OrderByDescending(x=>x.averageRating).Take(6)
+                         .Select(r => mapper.Map<DishBasicOutputModel>(r))
+                         .ToListAsync();
         }
     }
 }

@@ -111,5 +111,14 @@ namespace Quhinja.WebApi.Controllers
             var dishTypes = await dishService.GetDishTypesAsync();
             return Ok(dishTypes);
         }
+
+        [AllowAnonymous]
+        [HttpGet]
+        [Route("getSortedDishes")]
+        public async Task<ActionResult<ICollection<DishBasicOutputModel>>> GetSortedDishesAsync()
+        {
+            var dishOutputModel = await dishService.GetSortedDishesAsync();
+            return Ok(dishOutputModel);
+        }
     }
 }
