@@ -19,6 +19,8 @@ namespace Quhinja.Data.Entiities
         public int selectedRecipeId { get; set; }
 
         public Recipe selectedRecipe { get; set; }
+
+        public float? averageRating { get; set; }
         public ICollection<UsersRatingForDish> UsersRatings { get; set; }
 
         public string DishType { get; set; }

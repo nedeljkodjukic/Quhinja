@@ -1,4 +1,5 @@
 ﻿using Quhinja.Services.Models.InputModels.Dish;
+using Quhinja.Services.Models.InputModels.Recipe;
 using Quhinja.Services.Models.OutputModels.Dish;
 using System;
 using System.Collections.Generic;
@@ -17,6 +18,9 @@ namespace Quhinja.Services.Interfaces
         Task<ICollection<DishWithRecipesOutputModel>> GetDishesWithRecipesAsync();
 
         Task<int> AddDishAsync(DishBasicInputModel model);
+
+        Task<float?> RateDishAsync(UsersRatingForDishInputModel model);
+
 
         Task RemoveDishAsync(int dishId);
         Task AddImageToDishAsync(int dishId, string path);

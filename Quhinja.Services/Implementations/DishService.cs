@@ -2,8 +2,10 @@
 using Microsoft.EntityFrameworkCore;
 using Quhinja.Data;
 using Quhinja.Data.Entiities;
+using Quhinja.Data.Entiities.Quhinja.Data.Entiities;
 using Quhinja.Services.Interfaces;
 using Quhinja.Services.Models.InputModels.Dish;
+using Quhinja.Services.Models.InputModels.Recipe;
 using Quhinja.Services.Models.OutputModels.Dish;
 using System;
 using System.Collections.Generic;
@@ -82,12 +84,38 @@ namespace Quhinja.Services.Implementations
         {
             var dish = data.Dishes.Find(dishId);
              dish.Picture = path;
-            data.SaveChanges();
+             data.SaveChanges();
         }
 
         public async Task<ICollection<string>> GetDishTypesAsync()
         {
             return await data.Dishes.Select(x => x.DishType).Distinct().ToListAsync();
+        }
+
+        public async Task<float?> RateDishAsync(UsersRatingForDishInputModel model)
+        {
+
+            if (model == null)
+            {
+                throw new ArgumentNullException(nameof(model));
+            }
+            var rating = mapper.Map<UsersRatingForDish>(model);
+            await data.UsersRatingForDishes.AddAsync(rating);
+            await data.SaveChangesAsync();
+
+            var arrayOfRatings = await data.UsersRatingForDishes.Where(x => x.DishId == model.DishId).ToListAsync();
+            var dish = await data.Dishes.FindAsync(model.DishId);
+            int lenght = arrayOfRatings.Count();
+            float sum = 0;
+            foreach (var r in arrayOfRatings)
+                sum += r.Rating;
+            dish.averageRating = sum / lenght;
+            await data.SaveChangesAsync();
+
+            return dish.averageRating;
+
+
+
         }
     }
 }

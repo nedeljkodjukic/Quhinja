@@ -14,6 +14,7 @@ namespace Quhinja.Services.Interfaces
         Task<int> RegisterAsync(UserRegistrationInputModel userRegistrationInputModel);
         Task<int> RegisterAdminAsync(AdminRegistrationInputModel adminRegistrationInputModel);
         Task<string> ForgotPasswordAsync(string email);
+
         Task<bool> ResetPasswordAsync(string email, string code, string password);
         Task<TokenOutputModel> GenerateToken(string email, string secret, double expiration);
     }

@@ -3,15 +3,17 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using Quhinja.Data;
 
 namespace Quhinja.Data.Migrations
 {
     [DbContext(typeof(QuhinjaDbContext))]
-    partial class QuhinjaDbContextModelSnapshot : ModelSnapshot
+    [Migration("20201114154832_addedAverageRating")]
+    partial class addedAverageRating
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -142,8 +144,8 @@ namespace Quhinja.Data.Migrations
                     b.Property<string>("Picture")
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<float?>("averageRating")
-                        .HasColumnType("real");
+                    b.Property<int?>("averageRating")
+                        .HasColumnType("int");
 
                     b.Property<int>("selectedRecipeId")
                         .HasColumnType("int");

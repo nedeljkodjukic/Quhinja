@@ -3,6 +3,7 @@ using Microsoft.AspNetCore.Mvc;
 using Quhinja.Services.Implementations;
 using Quhinja.Services.Interfaces;
 using Quhinja.Services.Models.InputModels.Dish;
+using Quhinja.Services.Models.InputModels.Recipe;
 using Quhinja.Services.Models.OutputModels.Dish;
 using System;
 using System.Collections.Generic;
@@ -56,6 +57,20 @@ namespace Quhinja.WebApi.Controllers
             if (ModelState.IsValid)
             {
                 var id = await dishService.AddDishAsync(dishInputModel);
+                return Ok(id);
+            }
+            else
+                return BadRequest(ModelState.Values.SelectMany(x => x.Errors).Select(x => x.ErrorMessage).ToList());
+        }
+        [AllowAnonymous]
+        [HttpPost]
+        [Route("rateDish")]
+
+        public async Task<ActionResult<float>> RateDishAsync([FromBody] UsersRatingForDishInputModel ratingInput)
+        {
+            if (ModelState.IsValid)
+            {
+                var id = await dishService.RateDishAsync(ratingInput);
                 return Ok(id);
             }
             else

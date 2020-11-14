@@ -24,9 +24,9 @@ namespace Quhinja.Data.Configuration.EntitiesConfiguration
             builder.Property(dish => dish.Description)
                 .IsRequired(false);
 
-            
-
-
+            builder.Property(dish => dish.averageRating)
+                .IsRequired(false);
+        
             builder.HasMany(dish => dish.Recipes)
                 .WithOne(recipe => recipe.Dish)
                 .HasForeignKey(recipe => recipe.DishId)
