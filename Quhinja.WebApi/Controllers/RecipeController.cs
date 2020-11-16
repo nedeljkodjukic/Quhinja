@@ -52,7 +52,7 @@ namespace Quhinja.WebApi.Controllers
 
         [AllowAnonymous]
         [HttpPost]
-        public async Task<ActionResult<int>> AddRecipeAsync([FromBody] RecipeBasicInputModel recipeInputModel)
+        public async Task<ActionResult<int>> AddRecipeAsync([FromBody] RecipeWithDishInputModel recipeInputModel)
         {
             if (ModelState.IsValid)
             {

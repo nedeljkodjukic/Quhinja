@@ -14,6 +14,8 @@ namespace Quhinja.Services.Models.InputModels.Recipe
 
         public string Preview { get; set; }
 
+        public string PreparationTime { get; set; }
+
         public string Picture { get; set; }
     }
 }

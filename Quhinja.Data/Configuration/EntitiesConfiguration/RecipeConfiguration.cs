@@ -14,13 +14,16 @@ namespace Quhinja.Data.Configuration.EntitiesConfiguration
             builder.Property(rec =>rec.Name)
                   .IsRequired(true);
 
+            builder.Property(rec => rec.PreparationTime)
+                .IsRequired(false);
 
             builder.Property(rec => rec.Preview)
                 .IsRequired(false);
 
             
 
-            builder.HasMany(recipe => recipe.Ingridients)
+            builder.HasMany(recipe
+                => recipe.Ingridients)
                 .WithOne(ing => ing.Recipe)
                 .HasForeignKey(ing => ing.RecipeId)
                 .OnDelete(DeleteBehavior.NoAction);

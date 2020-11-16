@@ -8,7 +8,7 @@ using System.Text;
 
 namespace Quhinja.Services.Mappings.InputMappings
 {
-    class RecipeInputModels : Profile
+    public class RecipeInputModels : Profile
     {
         public RecipeInputModels()
         {

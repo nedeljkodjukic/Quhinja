@@ -32,7 +32,7 @@ namespace Quhinja.Services.Implementations
             data.SaveChanges();
         }
 
-        public async Task<int> AddRecipeAsync(RecipeBasicInputModel model)
+        public async Task<int> AddRecipeAsync(RecipeWithDishInputModel model)
         {
             if (model == null)
             {

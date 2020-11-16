@@ -14,7 +14,7 @@ namespace Quhinja.Services.Interfaces
 
         Task<ICollection<RecipeWithDishOutputModel>> GetRecipesWithDishAsync();
 
-        Task<int> AddRecipeAsync(RecipeBasicInputModel model);
+        Task<int> AddRecipeAsync(RecipeWithDishInputModel model);
 
         Task RemoveRecipeAsync(int recipeId);
         Task AddImageToRecipeAsync(int recipeId, string path);
