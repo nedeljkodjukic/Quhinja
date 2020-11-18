@@ -12,8 +12,11 @@ namespace Quhinja.Data.Configuration.EntitiesConfiguration
         public void Configure(EntityTypeBuilder<IngridientInRecipe> builder)
         {
             builder.Property(ing => ing.Quantity)
-                  .IsRequired()
-                  .HasMaxLength(50);
+                  .IsRequired(true);
+
+            builder.Property(ing => ing.Unit)
+                .IsRequired();
+                 
 
         }
                

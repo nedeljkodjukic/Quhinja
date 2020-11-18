@@ -11,7 +11,10 @@ namespace Quhinja.Services.Models.InputModels.Ingridient
 
         public IngridientBasicInputModel Ingridient { get; set; }
 
-        public string Quantity { get; set; }
+        public string Unit { get; set; }
+
+
+    public int Quantity { get; set; }
 
         
     }

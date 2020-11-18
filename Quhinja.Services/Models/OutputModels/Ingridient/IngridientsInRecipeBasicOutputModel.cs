@@ -15,7 +15,9 @@ namespace Quhinja.Services.Models.OutputModels.Ingridient
 
         public int RecipeId { get; set; }
 
-        public string Quantity { get; set; }
+        public string Unit { get; set; }
+
+        public int Quantity { get; set; }
        [JsonIgnore]//!!!!!!!
         public RecipeBasicOutputModel Recipe { get; set; }
     }

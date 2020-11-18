@@ -49,6 +49,7 @@ namespace Quhinja.Services.Implementations
             ing.RecipeId = model.RecipeId;
             ing.IngridientId = IngId.Id;
             ing.Quantity = model.Quantity;
+            ing.Unit = model.Unit;
             ing.Recipe = Recipe1;
             ing.Ingridient = IngId;
 
