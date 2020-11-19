@@ -20,8 +20,8 @@ namespace Quhinja.WebApi.Controllers
             this.userService = userService;
             this.blobService = blobService;
         }
-
-        [Authorize(Roles = "admin")]
+        //admin role
+        [AllowAnonymous]
         [HttpGet]
         public async Task<ActionResult<UserInfoOutputModel>> GetUsers()
         {
