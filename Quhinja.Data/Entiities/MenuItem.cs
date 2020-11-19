@@ -1,4 +1,5 @@
 using System;
+using System.Collections.Generic;
 
 namespace Quhinja.Data.Entiities
 {
@@ -11,6 +12,8 @@ namespace Quhinja.Data.Entiities
         public int RecipeId { get; set; }
 
         public Recipe Recipe { get; set; }
+
+        public ICollection<MissedLunch> MissedUsers { get; set; }
 
     }
 }

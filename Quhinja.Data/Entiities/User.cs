@@ -18,6 +18,9 @@ namespace Quhinja.Data.Entities
 
         public ICollection<UsersRatingForDish> RatingsInDishes { get; set; }
 
+        public ICollection<MissedLunch> MissedDates { get; set; }
+
+
 
         public DateTime? DateOfBirth { get; set; }
 

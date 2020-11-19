@@ -39,12 +39,12 @@ namespace Quhinja.Services.Implementations
             return dish.Id;
         }
 
-        public async  Task<DishBasicOutputModel> GetDishByIdAsync(int id)
+        public async  Task<DishWithRecipesOutputModel> GetDishByIdAsync(int id)
         {
             var dish = await data.Dishes.Include(dishh => dishh.Recipes).ThenInclude(r => r.Ingridients).SingleOrDefaultAsync(d => d.Id == id);
             if (dish != null)
             {
-                return mapper.Map<DishBasicOutputModel>(dish);
+                return mapper.Map<DishWithRecipesOutputModel>(dish);
             }
             throw new Exception("Not found in db");
         }

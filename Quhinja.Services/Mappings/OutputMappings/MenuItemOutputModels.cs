@@ -12,6 +12,7 @@ namespace Quhinja.Services.Mappings.OutputMappings
         public MenuItemOutputModels()
         {
             CreateMap<MenuItem, MenuItemBasicOutputModel>();
+            CreateMap<MissedLunch, MissedLunchBasicOutputModel>();
         }
     }
 }

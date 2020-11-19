@@ -12,6 +12,7 @@ namespace Quhinja.Services.Mappings.InputMappings
         public MenuItemInputModels()
         {
             CreateMap<MenuItemBasicInputModel,MenuItem>();
+            CreateMap<MissedLunchBasicInputModel, MissedLunch>();
         }
     
     }

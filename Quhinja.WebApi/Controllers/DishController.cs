@@ -28,7 +28,7 @@ namespace Quhinja.WebApi.Controllers
         [AllowAnonymous]
         [HttpGet]
         [Route("{id}")]
-        public async Task<ActionResult<DishBasicOutputModel>> GetDishByIdAsync(int id)
+        public async Task<ActionResult<DishWithRecipesOutputModel>> GetDishByIdAsync(int id)
         {
             var dishOutputModel = await dishService.GetDishByIdAsync(id);
             return Ok(dishOutputModel);

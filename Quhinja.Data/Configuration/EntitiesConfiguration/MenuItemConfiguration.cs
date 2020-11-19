@@ -14,6 +14,11 @@ namespace Quhinja.Data.Configuration.EntitiesConfiguration
 
             builder.Property(menu => menu.DateOfDish)
                 .IsRequired(true);
+
+            builder.HasMany(m=>m.MissedUsers)
+             .WithOne(u => u.MenuItem)
+             .HasForeignKey(rat => rat.MenuItemId)
+             .OnDelete(DeleteBehavior.NoAction);
         }
     }
 

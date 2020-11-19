@@ -10,7 +10,7 @@ namespace Quhinja.Services.Interfaces
 {
   public interface IDishService
     {
-        Task<DishBasicOutputModel> GetDishByIdAsync(int id);
+        Task<DishWithRecipesOutputModel> GetDishByIdAsync(int id);
 
         Task<ICollection<string>> GetDishTypesAsync();
         Task<ICollection<DishBasicOutputModel>> GetDishesAsync();

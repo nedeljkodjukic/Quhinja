@@ -41,6 +41,11 @@ namespace Quhinja.Data.Configuration.IdentityConfiguration
                 .HasForeignKey(rat => rat.UserId)
                 .OnDelete(DeleteBehavior.NoAction);
 
+            builder.HasMany(u => u.MissedDates)
+             .WithOne(mis => mis.User)
+             .HasForeignKey(mis => mis.UserId)
+             .OnDelete(DeleteBehavior.NoAction);
+
         }
     }
 }
