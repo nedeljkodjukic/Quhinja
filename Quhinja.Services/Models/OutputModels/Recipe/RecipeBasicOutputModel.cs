@@ -19,6 +19,8 @@ namespace Quhinja.Services.Models.OutputModels.Recipe
        public int? AverageRatings { get; set; }
 
         public IEnumerable<IngridientsInRecipeBasicOutputModel> Ingridients { get; set; }
+        public string PreparationTime { get; set; }
+
 
     }
 }

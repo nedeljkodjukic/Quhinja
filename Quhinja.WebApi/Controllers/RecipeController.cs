@@ -80,12 +80,11 @@ namespace Quhinja.WebApi.Controllers
         {
 
             var files = this.Request.Form.Files;
-            foreach (var file in files)
-            {
-                var path = await blobService.UploadPictureAsync(file, BlobService.RecipePicturesContainer);
+            
+                var path = await blobService.UploadPictureAsync(files.First(), BlobService.RecipePicturesContainer);
 
                 await recipeService.AddImageToRecipeAsync(recipeId, path);
-            }
+            
 
             return Ok();
         }

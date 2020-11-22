@@ -41,7 +41,7 @@ namespace Quhinja.Services.Implementations
 
         public async  Task<DishWithRecipesOutputModel> GetDishByIdAsync(int id)
         {
-            var dish = await data.Dishes.Include(dishh => dishh.Recipes).ThenInclude(r => r.Ingridients).SingleOrDefaultAsync(d => d.Id == id);
+            var dish = await data.Dishes.Include(dishh => dishh.Recipes).ThenInclude(r => r.Ingridients).ThenInclude(ing=>ing.Ingridient).SingleOrDefaultAsync(d => d.Id == id);
             if (dish != null)
             {
                 return mapper.Map<DishWithRecipesOutputModel>(dish);
