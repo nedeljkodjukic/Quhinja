@@ -30,6 +30,8 @@ namespace Quhinja.WebApi.Controllers
             return Ok(users);
         }
 
+        [Authorize(Roles = "admin")]
+
         [HttpGet]
         [Route("{id}")]
         public async Task<ActionResult<UserInfoOutputModel>> GetUserAsync([FromRoute] int id)
