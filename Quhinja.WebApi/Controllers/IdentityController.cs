@@ -2,9 +2,12 @@
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.ModelBinding;
 using Microsoft.Extensions.Configuration;
+using Quhinja.Services.Implementations;
 using Quhinja.Services.Interfaces;
 using Quhinja.Services.Models.InputModels.User;
 using Quhinja.Services.Models.OutputModels;
+using System.Linq;
+using System.Security.Claims;
 using System.Threading.Tasks;
 
 
@@ -125,6 +128,8 @@ namespace Quhinja.WebApi.Controllers
             return $"Molimo vas da resetujete vašu šifru klikom na sledeći " +
                 $"<a href='{clientUrl}'>link</a>";
         }
+        
+
     }
-    
-    }
+
+}

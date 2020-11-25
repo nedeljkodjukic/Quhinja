@@ -19,6 +19,7 @@ namespace Quhinja.Services.Interfaces
 
         Task<int> AddDishAsync(DishBasicInputModel model);
 
+
         Task<float?> RateDishAsync(UsersRatingForDishInputModel model);
 
         Task<ICollection<DishBasicOutputModel>> GetSortedDishesAsync();

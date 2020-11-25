@@ -38,7 +38,7 @@ namespace Quhinja.Services.Implementations
             data.SaveChanges();
             return dish.Id;
         }
-
+       
         public async  Task<DishWithRecipesOutputModel> GetDishByIdAsync(int id)
         {
             var dish = await data.Dishes.Include(dishh => dishh.Recipes).ThenInclude(r => r.Ingridients).ThenInclude(ing=>ing.Ingridient).SingleOrDefaultAsync(d => d.Id == id);

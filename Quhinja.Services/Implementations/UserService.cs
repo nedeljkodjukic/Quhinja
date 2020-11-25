@@ -39,7 +39,11 @@ namespace Quhinja.Services.Implementations
 
             }
         }
-
+        public async Task<int> GetRatingForUser(int id, int dishId)
+        {
+            var rating =  data.UsersRatingForDishes.Where(x => x.DishId == dishId && x.UserId == id).Select(x => x.Rating).FirstOrDefault();
+            return rating;
+        }
         public async Task<IEnumerable<UserInfoOutputModel>> GetUsers()
         {
             return await data.Users
@@ -49,15 +53,29 @@ namespace Quhinja.Services.Implementations
                           .ToListAsync();
         }
 
-        public async Task UpdateUserAsync(UserBasicInputModel model, int userId)
+        public async Task UpdateUserAsync(UserUpdateInputModel model, int userId)
         {
             var userInDb = await data.Users.FindAsync(userId);
 
             userInDb.Name = model.Name;
             userInDb.Surname = model.Surname;
-            userInDb.Position = model.Position;
-            userInDb.FavouriteDishId = model.FavouriteDishId;
+           
             
+
+            data.SaveChanges();
+        }
+       
+
+        public async Task UpdateProfilePictureAsync(int userId, string profilePictureUrl)
+        {
+            var user = await data.Users.FindAsync(userId);
+
+            if (user == null)
+            {
+                throw new Exception("Ne postoji u bazi");
+            }
+
+            user.ProfilePictureUrl = profilePictureUrl;
 
             data.SaveChanges();
         }

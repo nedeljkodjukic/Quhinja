@@ -62,7 +62,10 @@ namespace Quhinja.WebApi.Controllers
             else
                 return BadRequest(ModelState.Values.SelectMany(x => x.Errors).Select(x => x.ErrorMessage).ToList());
         }
-        [AllowAnonymous]
+
+       
+        [Authorize(Roles = "user")]
+
         [HttpPost]
         [Route("rateDish")]
 

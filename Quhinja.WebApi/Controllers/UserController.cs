@@ -1,6 +1,8 @@
 ﻿using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
+using Quhinja.Services.Implementations;
 using Quhinja.Services.Interfaces;
+using Quhinja.Services.Models.InputModels.User;
 using Quhinja.Services.Models.OutputModels.User;
 using System;
 using System.Collections.Generic;
@@ -30,7 +32,21 @@ namespace Quhinja.WebApi.Controllers
             return Ok(users);
         }
 
-        [Authorize(Roles = "admin")]
+        [Authorize(Roles = "user")]
+        [HttpGet]
+        [Route("getRatingForUser/{dishId}")]
+        public async Task<ActionResult<int>> GetRatingForUser([FromRoute] int dishId)
+        {
+
+            int usersId;
+                var userIdstring = this.User.Claims.First(x => x.Type == ClaimTypes.NameIdentifier).Value;
+                 int.TryParse(userIdstring, out usersId);
+
+        var user = await userService.GetUserAsync(usersId);
+            int rating = await userService.GetRatingForUser(usersId ,dishId);
+                return rating;
+    }
+    [Authorize(Roles = "admin,user")]
 
         [HttpGet]
         [Route("{id}")]
@@ -43,6 +59,33 @@ namespace Quhinja.WebApi.Controllers
             }
             var user = await userService.GetUserAsync(id);
             return Ok(user);
+        }
+        [Produces("application/json-patch+json")]
+        [Authorize(Roles = "admin,user")]
+        [HttpPost]
+        [Route("uploadPicture")]
+        public async Task<ActionResult<string>> UploadProfilePicture()
+        {
+            var files = this.Request.Form.Files;
+
+            var resultUrl = await blobService.UploadPictureAsync(files.First(), BlobService.ProfilePicturesContainer);
+
+            var userIdstring = this.User.Claims.First(x => x.Type == ClaimTypes.NameIdentifier).Value;
+            int.TryParse(userIdstring, out int userId);
+
+            await userService.UpdateProfilePictureAsync(userId, resultUrl);
+
+            return Ok(resultUrl);
+        }
+        [Authorize(Roles = "admin,user")]
+        [HttpPut]
+        [Route("update-user")]
+        public async Task<ActionResult> UpdateUserAsync([FromBody] UserUpdateInputModel userInputModel)
+        {
+            var userIdstring = this.User.Claims.First(x => x.Type == ClaimTypes.NameIdentifier).Value;
+            int.TryParse(userIdstring, out int userId);
+            await userService.UpdateUserAsync(userInputModel, userId);
+            return Ok();
         }
     }
 }
