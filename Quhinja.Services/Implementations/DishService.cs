@@ -136,5 +136,19 @@ namespace Quhinja.Services.Implementations
                          .Select(r => mapper.Map<DishBasicOutputModel>(r))
                          .ToListAsync();
         }
+
+        public async Task<int> selectRecipe(DishSelectedRecipeInput dish)
+        {
+            int dishId = dish.Id;
+
+            var dishFromDb =  await data.Dishes.FirstOrDefaultAsync(x => x.Id == dishId);
+
+            var recipe = await data.Recipes.FirstOrDefaultAsync(x => x.Id == dish.selectedRecipeId);
+            dishFromDb.selectedRecipeId = dish.selectedRecipeId;
+            dishFromDb.selectedRecipe = recipe;
+            await data.SaveChangesAsync();
+
+            return recipe.Id;
+        }
     }
 }

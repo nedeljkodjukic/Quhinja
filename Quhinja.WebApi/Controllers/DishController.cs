@@ -62,8 +62,21 @@ namespace Quhinja.WebApi.Controllers
             else
                 return BadRequest(ModelState.Values.SelectMany(x => x.Errors).Select(x => x.ErrorMessage).ToList());
         }
+        [Authorize(Roles = "admin")]
+        [HttpPost]
+        [Route("changeSelectedRecipe")]
 
-       
+        public async Task<ActionResult<int>> SelectRecipe([FromBody] DishSelectedRecipeInput input)
+        {
+            if (ModelState.IsValid)
+            {
+                var id = await dishService.selectRecipe(input);
+                return Ok(id);
+            }
+            else
+                return BadRequest(ModelState.Values.SelectMany(x => x.Errors).Select(x => x.ErrorMessage).ToList());
+        }
+
         [Authorize(Roles = "user")]
 
         [HttpPost]

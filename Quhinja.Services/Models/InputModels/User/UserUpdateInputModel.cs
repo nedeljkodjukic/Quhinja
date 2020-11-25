@@ -9,5 +9,7 @@ namespace Quhinja.Services.Models.InputModels.User
         public string Name { get; set; }
 
         public string Surname { get; set; }
+
+        public int FavouriteDishId { get; set; }
     }
 }

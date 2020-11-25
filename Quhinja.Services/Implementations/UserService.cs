@@ -59,6 +59,7 @@ namespace Quhinja.Services.Implementations
 
             userInDb.Name = model.Name;
             userInDb.Surname = model.Surname;
+            userInDb.FavouriteDishId = model.FavouriteDishId;
            
             
 
