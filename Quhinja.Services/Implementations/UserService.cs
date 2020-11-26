@@ -25,6 +25,7 @@ namespace Quhinja.Services.Implementations
         public async Task<UserInfoOutputModel> GetUserAsync(int id)
         {
             var userInDb= await data.Users
+                .Include(u=>u.MissedDates)
                           .Include(u => u.FavouriteDish)
                           .Include(u => u.UserRoles)
                           .SingleOrDefaultAsync(us => us.Id == id);
@@ -47,6 +48,7 @@ namespace Quhinja.Services.Implementations
         public async Task<IEnumerable<UserInfoOutputModel>> GetUsers()
         {
             return await data.Users
+                           .Include(u => u.MissedDates).ThenInclude(x=>x.MenuItem)
                           .Include(u => u.FavouriteDish)
                           .Include(u => u.UserRoles)
                           .Select(user => mapper.Map<UserInfoOutputModel>(user))

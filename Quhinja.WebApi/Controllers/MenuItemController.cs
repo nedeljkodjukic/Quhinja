@@ -1,6 +1,7 @@
 ﻿using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Quhinja.Services.Interfaces;
+using Quhinja.Services.Models.InputModels.MenuItem;
 using Quhinja.Services.Models.OutputModels.MenuItem;
 using System;
 using System.Collections.Generic;
@@ -27,6 +28,14 @@ namespace Quhinja.WebApi.Controllers
             return Ok(menuItemOtuputModel);
         }
 
+        [AllowAnonymous]
+        [HttpPost]
+        [Route("addMissedDate")]
+        public async Task<ActionResult<int>> AddMissedDate(MissedLunchBasicInputModel input)
+        {
+            var id = await menuItemService.AddMissedDate(input);
+            return id;
+        }
         [AllowAnonymous]
         [HttpGet]
         public async Task<ActionResult<ICollection<MenuItemBasicOutputModel>>> GetMenuItemsAsync()

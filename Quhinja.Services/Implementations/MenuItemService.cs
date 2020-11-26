@@ -1,7 +1,10 @@
 ﻿using AutoMapper;
 using Microsoft.EntityFrameworkCore;
 using Quhinja.Data;
+using Quhinja.Data.Entiities;
+using Quhinja.Data.Entities;
 using Quhinja.Services.Interfaces;
+using Quhinja.Services.Models.InputModels.MenuItem;
 using Quhinja.Services.Models.OutputModels.MenuItem;
 using System;
 using System.Collections.Generic;
@@ -22,9 +25,24 @@ namespace Quhinja.Services.Implementations
             this.data = data;
             this.mapper = mapper;
         }
+
+        public async Task<int> AddMissedDate(MissedLunchBasicInputModel input)
+        {
+            User userInDb = await data.Users.Include(x=>x.MissedDates).SingleOrDefaultAsync(x => x.Id == input.UserId);
+            MenuItem menuItemInDb = await data.MenuItems.Include(x=>x.MissedUsers).SingleOrDefaultAsync(x => x.Id == input.MenuItemId);
+            var missedLunch = mapper.Map<MissedLunch>(input);
+            missedLunch.UserId = userInDb.Id;
+            missedLunch.User = userInDb;
+            missedLunch.MenuItem = menuItemInDb;
+            await data.MissedLunches.AddAsync(missedLunch);
+            data.SaveChanges();
+
+            return missedLunch.Id;
+        }
+
         public async Task<MenuItemBasicOutputModel> GetMenuItemByIdAsync(int id)
         {
-            var menuItem = await data.MenuItems.Include(mi => mi.Recipe).ThenInclude(r => r.Ingridients).SingleOrDefaultAsync(d => d.Id == id);
+            var menuItem = await data.MenuItems.Include(x=>x.MissedUsers).Include(mi => mi.Recipe).ThenInclude(r => r.Ingridients).SingleOrDefaultAsync(d => d.Id == id);
             if (menuItem != null)
             {
                 return mapper.Map<MenuItemBasicOutputModel>(menuItem);
@@ -34,7 +52,7 @@ namespace Quhinja.Services.Implementations
 
         public async Task<ICollection<MenuItemBasicOutputModel>> GetMenuItemsAsync()
         {
-            return await data.MenuItems.Include(mi => mi.Recipe).ThenInclude(r => r.Ingridients)
+            return await data.MenuItems.Include(x=>x.MissedUsers).Include(mi => mi.Recipe).ThenInclude(r => r.Ingridients)
                           .Select(r => mapper.Map<MenuItemBasicOutputModel>(r))
                           .ToListAsync();
         }

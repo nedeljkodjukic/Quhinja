@@ -19,6 +19,8 @@ namespace Quhinja.Services.Models.OutputModels.Dish
 
         public int selectedRecipeId { get; set; }
 
+
+
         public float averageRating { get; set; }
 
         public RecipeBasicOutputModel selectedRecipe { get; set; }

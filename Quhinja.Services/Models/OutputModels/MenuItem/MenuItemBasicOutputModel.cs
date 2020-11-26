@@ -11,7 +11,11 @@ namespace Quhinja.Services.Models.OutputModels.MenuItem
 
         public DateTime DateOfDish { get; set; }
 
+        public ICollection<MissedLunchBasicOutputModel> MissedUsers { get; set; }
+
         public RecipeBasicOutputModel Recipe { get; set; }
+
+        public int RecipeId { get; set; }
 
     }
 }
