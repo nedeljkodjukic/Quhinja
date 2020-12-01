@@ -14,6 +14,12 @@ using System.Threading.Tasks;
 
 namespace Quhinja.Services.Implementations
 {
+
+    public class TwoWeekDay
+    {
+        public DateTime day { get; set; }
+        public MenuItemBasicOutputModel menuItem { get; set; }
+    }
     public class MenuItemService : IMenuItemService
     {
         private readonly QuhinjaDbContext data;
@@ -36,7 +42,46 @@ namespace Quhinja.Services.Implementations
                && d.DateOfDish.Year == DateTime.Now.Year && d.DateOfDish.Month == DateTime.Now.Month).FirstOrDefaultAsync();
             return mapper.Map<MenuItemBasicOutputModel>(menuItem);
         }
+        public async Task<ICollection<TwoWeekDay>> GetTwoWeeks()
+        {
+            List<TwoWeekDay> array = new List<TwoWeekDay>();
+            DayOfWeek currentDay = DateTime.Now.DayOfWeek;
+            int daysTillCurrentDay = currentDay - DayOfWeek.Monday;
+            DateTime currentWeekStartDate = DateTime.Now.AddDays(-daysTillCurrentDay);
+            DateTime deadLine = currentWeekStartDate.AddDays(14);
+          while(currentWeekStartDate.Date < deadLine.Date)
+            {
+                var menuItem = await data.MenuItems.Include(r=>r.Recipe).ThenInclude(x=>x.Dish).Where(x => x.DateOfDish.Date == currentWeekStartDate.Date).FirstOrDefaultAsync();
 
+                if (!(currentWeekStartDate.DayOfWeek == DayOfWeek.Saturday || currentWeekStartDate.DayOfWeek == DayOfWeek.Sunday))
+                {
+
+
+
+                    if (menuItem != null)
+                    {
+                        array.Add(new TwoWeekDay
+                        {
+                            day = currentWeekStartDate,
+                            menuItem = mapper.Map<MenuItemBasicOutputModel>(menuItem)
+                        });
+
+
+                    }
+                    else
+                    {
+                        array.Add(new TwoWeekDay
+                        {
+                            day = currentWeekStartDate,
+                            menuItem = null
+                        });
+                    }
+                }
+                currentWeekStartDate = currentWeekStartDate.AddDays(1);
+            
+            }
+            return array;   
+        }
         public async Task<int> AddMissedDate(MissedLunchBasicInputModel input)
         {
             User userInDb = await data.Users.Include(x=>x.MissedDates).SingleOrDefaultAsync(x => x.Id == input.UserId);
@@ -70,15 +115,66 @@ namespace Quhinja.Services.Implementations
 
         public async Task RemoveMenuItemAsync(int miId)
         {
-            var menuItemInDb = await data.MenuItems
+            var menuItemInDb = await data.MenuItems.Include(n=>n.MissedUsers)
                         
                         .SingleOrDefaultAsync(ing => ing.Id == miId);
+
+            var missedUserss = await data.MissedLunches.Include(mu => mu.MenuItem).Where(m => m.MenuItemId == miId).ToListAsync();
+            if (missedUserss.Count>0)
+            foreach(MissedLunch date in missedUserss)
+            {
+                data.MissedLunches.Remove(date);
+                await data.SaveChangesAsync();
+            }
 
             if (menuItemInDb != null)//
             {
                 data.MenuItems.Remove(menuItemInDb);
-                data.SaveChanges();
+             await   data.SaveChangesAsync();
             }
+
+        }
+
+        public async Task removeMenuItemByDate(MenuItemBasicInputModel dateTime)
+        {
+            DateTime dTime = dateTime.DateOfDish;
+            
+            var menuItemInDb = await data.MenuItems.Include(n => n.MissedUsers).Where(n=>n.DateOfDish.Date==dTime.Date)
+                
+                        .SingleOrDefaultAsync();
+
+            var missedUserss = await data.MissedLunches.Include(mu => mu.MenuItem).Where(m => m.MenuItemId == menuItemInDb.Id).ToListAsync();
+            if (missedUserss.Count > 0)
+                foreach (MissedLunch date in missedUserss)
+                {
+                    data.MissedLunches.Remove(date);
+                    await data.SaveChangesAsync();
+                }
+
+            if (menuItemInDb != null)//
+            {
+                data.MenuItems.Remove(menuItemInDb);
+                await data.SaveChangesAsync();
+            }
+
+        }
+
+        public async Task AddMenuItem(MenuItemBasicInputModel input)
+        {
+            var menuItemFroDb = await data.MenuItems.Where(x => x.DateOfDish.Date == input.DateOfDish.Date).SingleOrDefaultAsync();
+            if (menuItemFroDb == null)
+            {
+                MenuItem mi = mapper.Map<MenuItem>(input);
+                await data.MenuItems.AddAsync(mi);
+                await data.SaveChangesAsync();
+            }
+            else
+            {
+                menuItemFroDb.RecipeId = input.RecipeId;
+                data.MenuItems.Update(menuItemFroDb);
+                await data.SaveChangesAsync();
+            }
+
 
         }
     }

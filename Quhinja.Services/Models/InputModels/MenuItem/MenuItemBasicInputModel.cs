@@ -4,7 +4,7 @@ using System.Text;
 
 namespace Quhinja.Services.Models.InputModels.MenuItem
 {
-    class MenuItemBasicInputModel
+  public  class MenuItemBasicInputModel
     {
         public int Id { get; set; }
 
