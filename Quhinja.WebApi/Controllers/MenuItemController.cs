@@ -27,6 +27,14 @@ namespace Quhinja.WebApi.Controllers
             var menuItemOtuputModel = await menuItemService.GetMenuItemByIdAsync(id);
             return Ok(menuItemOtuputModel);
         }
+        [AllowAnonymous]
+        [HttpGet]
+        [Route("todaysRecipe")]
+        public async Task<ActionResult<MenuItemBasicOutputModel>> GetTodaysRecipe()
+        {
+            var menuItemOtuputModel = await menuItemService.GetTodayMenuItem();
+            return Ok(menuItemOtuputModel);
+        }
 
         [AllowAnonymous]
         [HttpPost]

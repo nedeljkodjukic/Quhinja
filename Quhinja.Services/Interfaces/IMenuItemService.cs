@@ -12,6 +12,8 @@ namespace Quhinja.Services.Interfaces
         Task<MenuItemBasicOutputModel> GetMenuItemByIdAsync(int id);
         Task<ICollection<MenuItemBasicOutputModel>> GetMenuItemsAsync();
 
+        Task<MenuItemBasicOutputModel> GetTodayMenuItem();
+
         Task<int> AddMissedDate(MissedLunchBasicInputModel input);
         Task RemoveMenuItemAsync(int menuItemId);
 

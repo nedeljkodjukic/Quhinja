@@ -5,17 +5,13 @@ using System.Text;
 
 namespace Quhinja.Services.Models.OutputModels.MenuItem
 {
-     public class MenuItemBasicOutputModel
+   public class MenuItemWithDatesOutputModel
     {
         public int Id { get; set; }
 
         public DateTime DateOfDish { get; set; }
 
-        public ICollection<MissedLunchBasicOutputModel> MissedUsers { get; set; }
-
-        public RecipeWithDishOutputModel Recipe { get; set; }
-
-        public int RecipeId { get; set; }
+        public RecipeBasicOutputModel Recipe { get; set; }
 
     }
 }

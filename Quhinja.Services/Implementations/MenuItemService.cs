@@ -26,6 +26,17 @@ namespace Quhinja.Services.Implementations
             this.mapper = mapper;
         }
 
+       public async  Task<MenuItemBasicOutputModel> GetTodayMenuItem()
+        {
+            var menuItem = await data.MenuItems
+                .Include(mi => mi.Recipe).ThenInclude(r=>r.Dish)
+                .Include(mi=>mi.Recipe)
+                    .ThenInclude(mi => mi.Ingridients).ThenInclude(ing => ing.Ingridient)
+               .Where(d => d.DateOfDish.Day == DateTime.Now.Day
+               && d.DateOfDish.Year == DateTime.Now.Year && d.DateOfDish.Month == DateTime.Now.Month).FirstOrDefaultAsync();
+            return mapper.Map<MenuItemBasicOutputModel>(menuItem);
+        }
+
         public async Task<int> AddMissedDate(MissedLunchBasicInputModel input)
         {
             User userInDb = await data.Users.Include(x=>x.MissedDates).SingleOrDefaultAsync(x => x.Id == input.UserId);
