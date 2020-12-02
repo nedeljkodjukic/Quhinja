@@ -32,6 +32,16 @@ namespace Quhinja.WebApi.Controllers
             return Ok(users);
         }
 
+        [AllowAnonymous]
+        [HttpGet]
+        [Route("todayUsers")]
+        public async Task<ActionResult<UserInfoOutputModel>> GetTodayUsers()
+        {
+            var users = await userService.GetTodaysUsers();
+
+            return Ok(users);
+        }
+
         [Authorize(Roles = "user")]
         [HttpGet]
         [Route("getRatingForUser/{dishId}")]

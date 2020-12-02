@@ -46,13 +46,30 @@ namespace Quhinja.Services.Implementations
             var ing = mapper.Map<IngridientInRecipe>(model);
             Ingridient IngId =await data.Ingridients.Include(i=>i.Recipes).SingleOrDefaultAsync(inggr => inggr.Name == model.Ingridient.Name);
             Recipe Recipe1 = await data.Recipes.Include(r=>r.Ingridients).SingleOrDefaultAsync(r => r.Id == model.RecipeId);
-            ing.RecipeId = model.RecipeId;
-            ing.IngridientId = IngId.Id;
-            ing.Quantity = model.Quantity;
-            ing.Unit = model.Unit;
-            ing.Recipe = Recipe1;
-            ing.Ingridient = IngId;
+            if (IngId != null)
+            {
+                ing.RecipeId = model.RecipeId;
+                ing.IngridientId = IngId.Id;
+                ing.Quantity = model.Quantity;
+                ing.Unit = model.Unit;
+                ing.Recipe = Recipe1;
+                ing.Ingridient = IngId;
+            }
+            else
+            {
+                Ingridient ingForBase = new Ingridient();
+                ingForBase.Name = model.Ingridient.Name;
 
+                data.Ingridients.Add(ingForBase);
+
+                await data.SaveChangesAsync();
+                ing.RecipeId = model.RecipeId;
+                ing.IngridientId = ingForBase.Id;
+                ing.Quantity = model.Quantity;
+                ing.Unit = model.Unit;
+                ing.Recipe = Recipe1;
+                ing.Ingridient = ingForBase;
+            }
             await data.IngridientInRecipes.AddAsync(ing);
 
 

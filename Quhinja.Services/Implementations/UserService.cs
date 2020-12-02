@@ -45,6 +45,18 @@ namespace Quhinja.Services.Implementations
             var rating =  data.UsersRatingForDishes.Where(x => x.DishId == dishId && x.UserId == id).Select(x => x.Rating).FirstOrDefault();
             return rating;
         }
+
+        public async Task<IEnumerable<UserInfoOutputModel>> GetTodaysUsers()
+        {
+            DateTime today = DateTime.Now.Date;
+            return await data.Users
+                            .Where(x=>x.DateOfBirth.Date== today || x.DateOfEmployment.Date == today)
+                          .Include(u => u.FavouriteDish)
+                          .Include(u => u.UserRoles)
+                          .Select(user => mapper.Map<UserInfoOutputModel>(user))
+                          .ToListAsync();
+        }
+
         public async Task<IEnumerable<UserInfoOutputModel>> GetUsers()
         {
             return await data.Users

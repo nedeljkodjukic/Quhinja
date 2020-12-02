@@ -22,9 +22,9 @@ namespace Quhinja.Data.Entities
 
 
 
-        public DateTime? DateOfBirth { get; set; }
+        public DateTime DateOfBirth { get; set; }
 
-        public DateTime? DateOfEmployment { get; set; }
+        public DateTime DateOfEmployment { get; set; }
 
         public string Position { get; set; }
 
