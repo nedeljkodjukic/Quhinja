@@ -14,7 +14,9 @@ namespace Quhinja.Services.Interfaces
         Task UpdateUserAsync(UserUpdateInputModel model, int userId);
         Task<int> GetRatingForUser(int id, int dishId);
 
-        Task<IEnumerable<UserInfoOutputModel>> GetTodaysUsers();
+        Task<IEnumerable<UserInfoOutputModel>> GetTodayBirthUsers();
+        Task<IEnumerable<UserInfoOutputModel>> GetTodayEmployeeDateUsers();
+
 
         Task UpdateProfilePictureAsync(int userId, string profilePictureUrl);
     }

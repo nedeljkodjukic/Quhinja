@@ -42,15 +42,26 @@ namespace Quhinja.Services.Implementations
         }
         public async Task<int> GetRatingForUser(int id, int dishId)
         {
-            var rating =  data.UsersRatingForDishes.Where(x => x.DishId == dishId && x.UserId == id).Select(x => x.Rating).FirstOrDefault();
+            var rating = await data.UsersRatingForDishes.Where(x => x.DishId == dishId && x.UserId == id).Select(x => x.Rating).FirstOrDefaultAsync();
             return rating;
         }
 
-        public async Task<IEnumerable<UserInfoOutputModel>> GetTodaysUsers()
+        public async Task<IEnumerable<UserInfoOutputModel>> GetTodayBirthUsers()
         {
-            DateTime today = DateTime.Now.Date;
+            DateTime today = DateTime.Now;
             return await data.Users
-                            .Where(x=>x.DateOfBirth.Date== today || x.DateOfEmployment.Date == today)
+                            .Where(x=>x.DateOfBirth.Day== today.Day && x.DateOfBirth.Month == today.Month)
+                          .Include(u => u.FavouriteDish)
+                          .Include(u => u.UserRoles)
+                          .Select(user => mapper.Map<UserInfoOutputModel>(user))
+                          .ToListAsync();
+        }
+
+        public async Task<IEnumerable<UserInfoOutputModel>> GetTodayEmployeeDateUsers()
+        {
+            DateTime today = DateTime.Now;
+            return await data.Users
+                            .Where(x => x.DateOfEmployment.Day == today.Day && x.DateOfEmployment.Month == today.Month)
                           .Include(u => u.FavouriteDish)
                           .Include(u => u.UserRoles)
                           .Select(user => mapper.Map<UserInfoOutputModel>(user))

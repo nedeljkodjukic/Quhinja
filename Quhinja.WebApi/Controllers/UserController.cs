@@ -34,10 +34,20 @@ namespace Quhinja.WebApi.Controllers
 
         [AllowAnonymous]
         [HttpGet]
-        [Route("todayUsers")]
-        public async Task<ActionResult<UserInfoOutputModel>> GetTodayUsers()
+        [Route("todayBirthUsers")]
+        public async Task<ActionResult<UserInfoOutputModel>> GetTodayBirthUsers()
         {
-            var users = await userService.GetTodaysUsers();
+            var users = await userService.GetTodayBirthUsers();
+
+            return Ok(users);
+        }
+
+        [AllowAnonymous]
+        [HttpGet]
+        [Route("todayEmplUsers")]
+        public async Task<ActionResult<UserInfoOutputModel>> GetTodayEmployeeDateUsers()
+        {
+            var users = await userService.GetTodayEmployeeDateUsers();
 
             return Ok(users);
         }
