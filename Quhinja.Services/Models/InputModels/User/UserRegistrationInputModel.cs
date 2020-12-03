@@ -20,6 +20,8 @@ namespace Quhinja.Services.Models.InputModels.User
         public DateTime? DateOfEmployment { get; set; }
         public IEnumerable<int> Roles { get; set; }
 
+        public int? FavouriteDishId { get; set; }
+
         public string Position { get; set; }
 
     }

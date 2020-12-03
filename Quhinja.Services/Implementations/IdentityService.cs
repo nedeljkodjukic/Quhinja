@@ -67,7 +67,7 @@ namespace Quhinja.Services.Implementations
         public async Task<int> RegisterAsync(UserRegistrationInputModel userRegistrationInputModel)
         {
             var user = mapper.Map<User>(userRegistrationInputModel);
-
+            
             var result = await userManager.CreateAsync(user, userRegistrationInputModel.Password);
 
             if (!result.Succeeded)
