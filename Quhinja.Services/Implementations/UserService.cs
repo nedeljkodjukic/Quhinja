@@ -1,6 +1,7 @@
 ﻿using AutoMapper;
 using Microsoft.EntityFrameworkCore;
 using Quhinja.Data;
+using Quhinja.Data.Entiities;
 using Quhinja.Services.Interfaces;
 using Quhinja.Services.Models.InputModels.User;
 using Quhinja.Services.Models.OutputModels.User;
@@ -85,8 +86,43 @@ namespace Quhinja.Services.Implementations
             userInDb.Name = model.Name;
             userInDb.Surname = model.Surname;
             userInDb.FavouriteDishId = model.FavouriteDishId;
-           
-            
+            var FavouriteDish = await data.Dishes.Include(x => x.Recipes).Include(x => x.selectedRecipe).SingleOrDefaultAsync(x => x.Id == model.FavouriteDishId);
+            //set FavouriteDish in Menu 
+
+            var menuItemForBirth = await data.MenuItems.Include(x => x.Recipe).Where(x => x.DateOfDish.Date == userInDb.DateOfBirth.Date).SingleOrDefaultAsync();
+            var menuItemForEmpl =  await data.MenuItems.Include(x => x.Recipe).Where(x => x.DateOfDish.Date == userInDb.DateOfEmployment.Date).SingleOrDefaultAsync();
+
+            if (menuItemForBirth==null)
+            {
+                MenuItem mi = new MenuItem();
+                mi.DateOfDish = userInDb.DateOfBirth;
+                mi.RecipeId = FavouriteDish.selectedRecipeId;
+                await data.MenuItems.AddAsync(mi);
+                await data.SaveChangesAsync();
+            }
+            else
+            {
+                menuItemForBirth.RecipeId = FavouriteDish.selectedRecipeId;
+                data.MenuItems.Update(menuItemForBirth);
+                await data.SaveChangesAsync();
+            }
+            if (menuItemForEmpl == null)
+            {
+                MenuItem mi = new MenuItem();
+                mi.DateOfDish = userInDb.DateOfEmployment;
+                mi.RecipeId = FavouriteDish.selectedRecipeId;
+                await data.MenuItems.AddAsync(mi);
+                await data.SaveChangesAsync();
+            }
+            else
+            {
+                menuItemForEmpl.RecipeId = FavouriteDish.selectedRecipeId;
+                data.MenuItems.Update(menuItemForEmpl);
+                await data.SaveChangesAsync();
+            }
+
+
+
 
             data.SaveChanges();
         }

@@ -38,7 +38,7 @@ namespace Quhinja.WebApi
 
             services.AddAutoMapper(typeof(IIngridientService))
                 .AddDbContext<QuhinjaDbContext>(options =>
-                options.UseSqlServer(Configuration.GetConnectionString("DefaultConnection")))
+                    options.UseSqlServer(Configuration.GetConnectionString("DefaultConnection")))
                 .AddBusinessLogicServices(Configuration);
 
             services.AddIdentity()
