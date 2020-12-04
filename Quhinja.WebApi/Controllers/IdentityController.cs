@@ -17,16 +17,16 @@ namespace Quhinja.WebApi.Controllers
     {
         private readonly IIdentityService identityService;
         private readonly IConfiguration configuration;
-       private readonly IEmailSender emailSender;
+        private readonly IEmailSender emailSender;
 
         public IdentityController(
             IIdentityService identityService,
-            IConfiguration configuration,IEmailSender emailSender
+            IConfiguration configuration, IEmailSender emailSender
           )
         {
             this.identityService = identityService;
             this.configuration = configuration;
-           this.emailSender = emailSender;
+            this.emailSender = emailSender;
         }
 
 
@@ -69,12 +69,11 @@ namespace Quhinja.WebApi.Controllers
             if (ModelState.IsValid)
 
             {
-                userRegistrationInputModel.Password = userRegistrationInputModel.Name + "." + userRegistrationInputModel.Surname + 1;
-                var id = await identityService.RegisterAsync(userRegistrationInputModel);
+                var result = await identityService.RegisterAsync(userRegistrationInputModel);
 
-                await emailSender.SendEmailAsync(userRegistrationInputModel.Email, "Quhinja Admin", "Vaša lozinka je:"+userRegistrationInputModel.Password ) ;
+                await emailSender.SendEmailAsync(userRegistrationInputModel.Email, "Quhinja Admin", "Vaša lozinka je: " + result.Password);
 
-                return Ok(id);
+                return Ok(result.Id);
             }
 
             return BadRequest();
@@ -132,7 +131,7 @@ namespace Quhinja.WebApi.Controllers
             return $"Molimo vas da resetujete vašu šifru klikom na sledeći " +
                 $"<a href='{clientUrl}'>link</a>";
         }
-        
+
 
     }
 

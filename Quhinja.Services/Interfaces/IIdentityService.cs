@@ -1,5 +1,6 @@
 ﻿using Quhinja.Services.Models.InputModels.User;
 using Quhinja.Services.Models.OutputModels;
+using Quhinja.Services.Models.OutputModels.User;
 using System;
 using System.Collections.Generic;
 using System.Text;
@@ -11,7 +12,7 @@ namespace Quhinja.Services.Interfaces
     {
         Task<bool> IsEmailOccupied(string email);
         Task LoginAsync(UserLoginInputModel userLoginInputModel);
-        Task<int> RegisterAsync(UserRegistrationInputModel userRegistrationInputModel);
+        Task<UserRegistrationOutputModel> RegisterAsync(UserRegistrationInputModel userRegistrationInputModel);
         Task<int> RegisterAdminAsync(AdminRegistrationInputModel adminRegistrationInputModel);
         Task<string> ForgotPasswordAsync(string email);
 

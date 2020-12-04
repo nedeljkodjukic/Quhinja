@@ -14,15 +14,13 @@ namespace Quhinja.Services.Models.InputModels.User
         
         public string Email { get; set; }
 
-        public string Password { get; set; }
-
         public bool IsFemale { get; set; }
 
         public DateTime? DateOfBirth { get; set; }
 
         public DateTime? DateOfEmployment { get; set; }
 
-        public IEnumerable<int> Roles { get; set; }
+        public bool Admin { get; set; }
 
         public string Position { get; set; }
 

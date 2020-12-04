@@ -7,6 +7,7 @@ using Quhinja.Data.Entities;
 using Quhinja.Services.Interfaces;
 using Quhinja.Services.Models.InputModels.User;
 using Quhinja.Services.Models.OutputModels;
+using Quhinja.Services.Models.OutputModels.User;
 using System;
 using System.Collections.Generic;
 using System.IdentityModel.Tokens.Jwt;
@@ -64,24 +65,28 @@ namespace Quhinja.Services.Implementations
             }
         }
 
-        public async Task<int> RegisterAsync(UserRegistrationInputModel userRegistrationInputModel)
+        public async Task<UserRegistrationOutputModel> RegisterAsync(UserRegistrationInputModel userRegistrationInputModel)
         {
             var user = mapper.Map<User>(userRegistrationInputModel);
-            
-            var result = await userManager.CreateAsync(user, userRegistrationInputModel.Password);
+
+            string pass = userRegistrationInputModel.Name + "." + userRegistrationInputModel.Surname + 1;
+
+            var result = await userManager.CreateAsync(user, pass);
 
             if (!result.Succeeded)
             {
                 throw new InvalidOperationException(string.Join(" ", result.Errors.Select(x => x.Description)));
             }
 
-            var roleNames = await roleManager.Roles
-                .Where(x => userRegistrationInputModel.Roles.Contains(x.Id))
-                .Select(x => x.Name).ToListAsync();
+            var roles = userRegistrationInputModel.Admin ? new string[] { "Admin", "User" } : new string[] { "User" };
 
-            await userManager.AddToRolesAsync(user, roleNames);
+            await userManager.AddToRolesAsync(user, roles);
 
-            return user.Id;
+            return new UserRegistrationOutputModel
+            {
+                Id = user.Id,
+                Password = pass
+            };
         }
 
         public async Task<TokenOutputModel> GenerateToken(string email, string secret, double expiration)
