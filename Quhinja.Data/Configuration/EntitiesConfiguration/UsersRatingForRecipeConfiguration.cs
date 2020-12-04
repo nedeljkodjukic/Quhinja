@@ -11,12 +11,11 @@ namespace Quhinja.Data.Configuration.EntitiesConfiguration
     {
         public void Configure(EntityTypeBuilder<UsersRatingForDish> builder)
         {
+
             builder.Property(ing => ing.Rating)
                   .IsRequired(true);
-                  
-
+            
         }
-
     }
 }
  

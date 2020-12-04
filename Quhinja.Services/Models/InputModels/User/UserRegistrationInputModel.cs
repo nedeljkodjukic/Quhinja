@@ -7,8 +7,11 @@ namespace Quhinja.Services.Models.InputModels.User
     {
 
         public string Name { get; set; }
+
         public string UserName { get; set; }
+        
         public string Surname { get; set; }
+        
         public string Email { get; set; }
 
         public string Password { get; set; }
@@ -18,9 +21,8 @@ namespace Quhinja.Services.Models.InputModels.User
         public DateTime? DateOfBirth { get; set; }
 
         public DateTime? DateOfEmployment { get; set; }
-        public IEnumerable<int> Roles { get; set; }
 
-        public int? FavouriteDishId { get; set; }
+        public IEnumerable<int> Roles { get; set; }
 
         public string Position { get; set; }
 

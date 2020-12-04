@@ -102,6 +102,7 @@ namespace Quhinja.WebApi.Controllers
         [Route("update-user")]
         public async Task<ActionResult> UpdateUserAsync([FromBody] UserUpdateInputModel userInputModel)
         {
+            
             var userIdstring = this.User.Claims.First(x => x.Type == ClaimTypes.NameIdentifier).Value;
             int.TryParse(userIdstring, out int userId);
             await userService.UpdateUserAsync(userInputModel, userId);

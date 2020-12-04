@@ -8,6 +8,7 @@ namespace Quhinja.Data.Configuration.IdentityConfiguration
     {
         public void Configure(EntityTypeBuilder<User> builder)
         {
+
             builder.Property(u => u.Name)
                 .IsRequired()
                 .HasMaxLength(30);
@@ -27,7 +28,6 @@ namespace Quhinja.Data.Configuration.IdentityConfiguration
 
             builder.Property(u => u.DateOfEmployment)
                 .IsRequired(true);
-
 
             builder.Property(u => u.Position)
                 .IsRequired(false);

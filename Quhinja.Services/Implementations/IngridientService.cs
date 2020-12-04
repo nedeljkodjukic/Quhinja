@@ -38,7 +38,7 @@ namespace Quhinja.Services.Implementations
         }
 
         public async Task<int> AddIngridientToRecipeAsync(IngridientsInRecipeBasicInputModel model)
-        {////ne radi
+        {
             if (model == null)
             {
                 throw new ArgumentNullException(nameof(model));

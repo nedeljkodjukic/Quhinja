@@ -12,8 +12,6 @@ namespace Quhinja.Data.Configuration.EntitiesConfiguration
         public void Configure(EntityTypeBuilder<MissedLunch> builder)
         {
            
-
-
         }
     
     }

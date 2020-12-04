@@ -7,7 +7,6 @@ using Quhinja.Data.Entiities.Quhinja.Data.Entiities;
 
 namespace Quhinja.Data.Entities
 {
-
     public class User : IdentityUser<int>
     {
         public string Name { get; set; }
@@ -19,8 +18,6 @@ namespace Quhinja.Data.Entities
         public ICollection<UsersRatingForDish> RatingsInDishes { get; set; }
 
         public ICollection<MissedLunch> MissedDates { get; set; }
-
-
 
         public DateTime DateOfBirth { get; set; }
 

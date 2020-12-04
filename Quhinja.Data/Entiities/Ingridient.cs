@@ -10,6 +10,5 @@ namespace Quhinja.Data.Entiities
 
         public ICollection<IngridientInRecipe> Recipes { get; set; }
 
-
     }
 }

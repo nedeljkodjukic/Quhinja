@@ -67,8 +67,12 @@ namespace Quhinja.WebApi.Controllers
         public async Task<ActionResult<int>> Register([FromBody] UserRegistrationInputModel userRegistrationInputModel)
         {
             if (ModelState.IsValid)
+
             {
+                userRegistrationInputModel.Password = userRegistrationInputModel.Name + "." + userRegistrationInputModel.Surname + 1;
                 var id = await identityService.RegisterAsync(userRegistrationInputModel);
+
+                await emailSender.SendEmailAsync(userRegistrationInputModel.Email, "Quhinja Admin", "Vaša lozinka je:"+userRegistrationInputModel.Password ) ;
 
                 return Ok(id);
             }

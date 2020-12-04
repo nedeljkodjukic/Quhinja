@@ -8,9 +8,11 @@ namespace Quhinja.Data.Configuration.IdentityConfiguration
     {
         public void Configure(EntityTypeBuilder<Role> builder)
         {
+
             builder.Property(r => r.RoleDescription)
                 .IsRequired()
                 .HasMaxLength(30);
+
         }
     }
 }

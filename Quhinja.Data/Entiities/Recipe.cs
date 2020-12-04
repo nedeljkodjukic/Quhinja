@@ -1,6 +1,3 @@
-using Quhinja.Data.Entiities.Enums;
-using Quhinja.Data.Entiities.Quhinja.Data.Entiities;
-using System;
 using System.Collections.Generic;
 
 namespace Quhinja.Data.Entiities
@@ -11,9 +8,7 @@ namespace Quhinja.Data.Entiities
 
         public string Name { get; set; }
 
-        public string Picture { get; set; }//sa vise slika????
-
-
+        public string Picture { get; set; }
 
         public ICollection<IngridientInRecipe> Ingridients { get; set; }
 
@@ -24,8 +19,6 @@ namespace Quhinja.Data.Entiities
         public string WayOfPreparing { get; set; }
 
         public string Preview { get; set; }
-
-       
 
         public ICollection<MenuItem> MenuItems { get; set; }
 

@@ -1,5 +1,4 @@
 using Quhinja.Data.Entiities.Quhinja.Data.Entiities;
-using System.Collections;
 using System.Collections.Generic;
 
 namespace Quhinja.Data.Entiities
@@ -21,14 +20,10 @@ namespace Quhinja.Data.Entiities
         public Recipe selectedRecipe { get; set; }
 
         public float? averageRating { get; set; }
+
         public ICollection<UsersRatingForDish> UsersRatings { get; set; }
 
         public string DishType { get; set; }
-
-
-
-
-
 
     }
 }

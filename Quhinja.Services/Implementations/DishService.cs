@@ -121,12 +121,8 @@ namespace Quhinja.Services.Implementations
                     sum += r.Rating;
                 dish.averageRating = sum / lenght;
             
-            
-            await data.SaveChangesAsync();
-
-            return dish.averageRating;
-
-
+                    await data.SaveChangesAsync();
+                    return dish.averageRating;
 
         }
 

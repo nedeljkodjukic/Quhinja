@@ -31,15 +31,15 @@ namespace Quhinja.Data.Configuration
         public static ModelBuilder ApplyQuhinjaConfiguration(this ModelBuilder modelBuilder)
         {
             return modelBuilder
-             .ApplyConfiguration(new IngridientInRecipeConfiguration())
-            .ApplyConfiguration(new DishConfiguration())
-              .ApplyConfiguration(new IngridientConfiguration())
-              .ApplyConfiguration(new MenuItemConfiguration())
-              .ApplyConfiguration(new RecipeConfiguration())
-            .ApplyConfiguration(new UsersRatingForDishConfiguration())
-            .ApplyConfiguration(new MissedLunchConfiguration());
+                                 .ApplyConfiguration(new IngridientInRecipeConfiguration())
+                                 .ApplyConfiguration(new DishConfiguration())
+                                 .ApplyConfiguration(new IngridientConfiguration())
+                                 .ApplyConfiguration(new MenuItemConfiguration())
+                                 .ApplyConfiguration(new RecipeConfiguration())
+                                 .ApplyConfiguration(new UsersRatingForDishConfiguration())
+                                 .ApplyConfiguration(new MissedLunchConfiguration());
             
-              }
+        }
     }
 }
 

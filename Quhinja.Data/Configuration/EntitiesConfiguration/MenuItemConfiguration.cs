@@ -19,7 +19,7 @@ namespace Quhinja.Data.Configuration.EntitiesConfiguration
              .WithOne(u => u.MenuItem)
              .HasForeignKey(rat => rat.MenuItemId)
              .OnDelete(DeleteBehavior.NoAction);
+
         }
     }
-
 }
