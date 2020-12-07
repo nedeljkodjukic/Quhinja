@@ -10,6 +10,8 @@ namespace Quhinja.Services.Interfaces
 {
     public interface  IIdentityService
     {
+          Task<bool> ChangePassword(string cPass, string newP, string email);
+
         Task<bool> IsEmailOccupied(string email);
         Task LoginAsync(UserLoginInputModel userLoginInputModel);
         Task<UserRegistrationOutputModel> RegisterAsync(UserRegistrationInputModel userRegistrationInputModel);

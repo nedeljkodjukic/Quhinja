@@ -13,6 +13,8 @@ namespace Quhinja.Services.Models.OutputModels.User
         public string Name { get; set; }
         public string Surname { get; set; }
         public string Gender { get; set; }
+
+        public string Email { get; set; }
         public DateTime DateOfBirth { get; set; }
         public DateTime? DateOfEmployment { get; set; }
 

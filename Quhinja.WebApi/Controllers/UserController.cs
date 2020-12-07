@@ -104,6 +104,7 @@ namespace Quhinja.WebApi.Controllers
         {
             
             var userIdstring = this.User.Claims.First(x => x.Type == ClaimTypes.NameIdentifier).Value;
+            
             int.TryParse(userIdstring, out int userId);
             await userService.UpdateUserAsync(userInputModel, userId);
             return Ok();

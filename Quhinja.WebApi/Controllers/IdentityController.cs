@@ -109,19 +109,38 @@ namespace Quhinja.WebApi.Controllers
         [Route("resetPassword")]
         public async Task<ActionResult> ResetPassword([FromBody] ResetPasswordInputModel resetPasswordInputModel)
         {
-            var result = await identityService.ResetPasswordAsync(
-                resetPasswordInputModel.Email,
-                resetPasswordInputModel.Code,
-                resetPasswordInputModel.Password);
+            //var result = await identityService.ResetPasswordAsync(
+            //    resetPasswordInputModel.Email,
+            //    resetPasswordInputModel.Code,
+            //    resetPasswordInputModel.Password);
 
-            if (result)
-            {
-                return Ok();
-            }
+            //if (result)
+            //{
+            //    return Ok();
+            //}
 
             return Conflict("Nažalost, šifra je neuspešno resetovana");
         }
+        [AllowAnonymous]
+        [HttpPost]
+        [Route("changePassword")]
+        public async Task<ActionResult> ChangePassword([FromBody] ResetPasswordInputModel resetPasswordInputModel)
+        {
+            var result = await identityService.ChangePassword(
+                resetPasswordInputModel.cPass,
+                resetPasswordInputModel.Password,
+                                resetPasswordInputModel.Email
+);
 
+            if (result)
+            {
+                await emailSender.SendEmailAsync(resetPasswordInputModel.Email, "Quhinja Admin", "Vaša nova lozinka je: " + resetPasswordInputModel.Password);
+
+                return Ok();
+            }
+
+            return Conflict("Nažalost, šifra je neuspešno promenjena");
+        }
         private string GenerateResetPasswordEmailContent(string email, string resetCode)
         {
             var clientUrl = configuration["Client:Url"].ToString();

@@ -9,7 +9,7 @@ namespace Quhinja.Services.Models.InputModels.User
         {
             public string Email { get; set; }
 
-            public string Code { get; set; }
+            public string cPass { get; set; }
 
             public string Password { get; set; }
         }

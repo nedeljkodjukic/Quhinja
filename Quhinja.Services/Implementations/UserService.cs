@@ -82,7 +82,7 @@ namespace Quhinja.Services.Implementations
         public async Task UpdateUserAsync(UserUpdateInputModel model, int userId)
         {
             var userInDb = await data.Users.FindAsync(userId);
-
+            
             userInDb.Name = model.Name;
             userInDb.Surname = model.Surname;
             userInDb.FavouriteDishId = model.FavouriteDishId;

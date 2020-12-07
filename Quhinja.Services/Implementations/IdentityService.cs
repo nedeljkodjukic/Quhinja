@@ -139,12 +139,26 @@ namespace Quhinja.Services.Implementations
             {
                 throw new Exception("Korisnik sa traženom email adresom ne postoji u sistemu");
             }
-
             var code = await userManager.GeneratePasswordResetTokenAsync(user);
             code = WebEncoders.Base64UrlEncode(Encoding.UTF8.GetBytes(code));
 
             return code;
         }
+        public async Task<bool> ChangePassword( string cPass, string newP,  string email)
+        {
+            var user = await userManager.FindByEmailAsync(email);
+
+            if (user == null)
+            {
+                throw new Exception("Korisnik sa traženom email adresom ne postoji u sistemu");
+            }
+
+          
+            var result = await userManager.ChangePasswordAsync(user, cPass,newP);
+
+            return result.Succeeded;
+        }
+
 
         public async Task<bool> ResetPasswordAsync(string email, string code, string password)
         {
