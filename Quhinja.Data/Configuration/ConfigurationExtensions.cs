@@ -20,6 +20,7 @@ namespace Quhinja.Data.Configuration
             return modelBuilder
                 .ApplyConfiguration(new RoleConfiguration())
                 .ApplyConfiguration(new UserConfiguration())
+                .ApplyConfiguration(new UserRoleConfiguration())
                 .Entity<User>(action => action.ToTable("Users"))
                 .Entity<Role>(action => action.ToTable("Roles"))
                 .Entity<IdentityRoleClaim<TKey>>(action => action.ToTable("RoleClaims"))

@@ -1,6 +1,9 @@
-﻿using Microsoft.EntityFrameworkCore;
+﻿using Microsoft.AspNetCore.Identity;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
 using Quhinja.Data.Entities;
+using System;
+using System.Collections.Generic;
 
 namespace Quhinja.Data.Configuration.IdentityConfiguration
 {
@@ -46,14 +49,26 @@ namespace Quhinja.Data.Configuration.IdentityConfiguration
              .HasForeignKey(mis => mis.UserId)
              .OnDelete(DeleteBehavior.NoAction);
 
+
             builder.HasData(new User
             {
-                Id = 5,
+                Id = 1,
                 Name = "Srdjan",
                 Surname = "Arsic",
-                UserName = "srki",
-                Email = "srdjan.arsic@quadrixsoft.com"
-
+                UserName = "adm",
+                NormalizedUserName = "ADM",
+                Email = "srdjan.arsic@quadrixsoft.com",
+                NormalizedEmail = "SRDJAN.ARSIC@QUADRIXSOFT.COM",
+                EmailConfirmed = false,
+                Gender = Entiities.Enums.Gender.Male,
+                DateOfBirth = DateTime.Now,
+                DateOfEmployment = DateTime.Now,
+                AccessFailedCount = 0,
+                LockoutEnabled = true,
+                TwoFactorEnabled = false,
+                PhoneNumberConfirmed = false,
+                SecurityStamp= "5TBB7CACI3F2JOD25JGXSNQASZ2NWHRK",
+                PasswordHash ="AQAAAAEAACcQAAAAELVcpiFzbc+pNTWWEBIXRKHvCaoWR65ihDzBGmGTwqAWU5kcy7KVDHLS+YSPTycg7w=="
             });
 
         }

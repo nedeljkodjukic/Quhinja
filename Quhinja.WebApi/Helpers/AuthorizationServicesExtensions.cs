@@ -21,7 +21,7 @@ namespace Quhinja.WebApi.Helpers
             {
                 options.Password.RequireUppercase = false;
                 options.Password.RequireDigit = true;
-                options.Password.RequireNonAlphanumeric = true;
+                options.Password.RequireNonAlphanumeric = false;
                 options.Password.RequiredLength = 8;
                 options.User.RequireUniqueEmail = true;
                 options.SignIn.RequireConfirmedEmail = false;
