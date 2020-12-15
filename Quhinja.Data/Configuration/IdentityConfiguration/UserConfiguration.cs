@@ -46,6 +46,16 @@ namespace Quhinja.Data.Configuration.IdentityConfiguration
              .HasForeignKey(mis => mis.UserId)
              .OnDelete(DeleteBehavior.NoAction);
 
+            builder.HasData(new User
+            {
+                Id = 5,
+                Name = "Srdjan",
+                Surname = "Arsic",
+                UserName = "srki",
+                Email = "srdjan.arsic@quadrixsoft.com"
+
+            });
+
         }
     }
 }
