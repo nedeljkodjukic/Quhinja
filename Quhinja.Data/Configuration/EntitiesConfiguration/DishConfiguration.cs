@@ -21,6 +21,10 @@ namespace Quhinja.Data.Configuration.EntitiesConfiguration
             builder.Property(dish => dish.Picture)
                 .IsRequired(false);
 
+
+            builder.Property(dish => dish.Image)
+                .IsRequired(false);
+
             builder.Property(dish => dish.Description)
                 .IsRequired(false);
 

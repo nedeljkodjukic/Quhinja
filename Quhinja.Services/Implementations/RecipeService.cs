@@ -25,6 +25,14 @@ namespace Quhinja.Services.Implementations
             this.data = data;
             this.mapper = mapper;
         }
+
+        public async Task AddImageBytesAsync(int recipeId, byte [] bytes)
+        {
+            var recipe = await data.Recipes.FindAsync(recipeId);
+            recipe.Image =bytes;
+            data.SaveChanges();
+
+        }
         public async Task AddImageToRecipeAsync(int recipeId, string path)
         {
             var recipe = await data.Recipes.FindAsync(recipeId);

@@ -11,5 +11,7 @@ namespace Quhinja.Services.Models.OutputModels
         public string Name { get; set; }
         public string Surname { get; set; }
         public string ProfilePictureUrl { get; set; }
+
+        public byte [] Image { get; set; }
     }
 }

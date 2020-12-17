@@ -3,15 +3,17 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using Quhinja.Data;
 
 namespace Quhinja.Data.Migrations
 {
     [DbContext(typeof(QuhinjaDbContext))]
-    partial class QuhinjaDbContextModelSnapshot : ModelSnapshot
+    [Migration("20201217014633_tryImage1")]
+    partial class tryImage1
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -145,9 +147,6 @@ namespace Quhinja.Data.Migrations
                     b.Property<string>("DishType")
                         .HasColumnType("nvarchar(50)")
                         .HasMaxLength(50);
-
-                    b.Property<byte[]>("Image")
-                        .HasColumnType("varbinary(max)");
 
                     b.Property<string>("Name")
                         .IsRequired()
@@ -296,9 +295,6 @@ namespace Quhinja.Data.Migrations
                     b.Property<int>("DishId")
                         .HasColumnType("int");
 
-                    b.Property<byte[]>("Image")
-                        .HasColumnType("varbinary(max)");
-
                     b.Property<string>("Name")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
@@ -359,7 +355,7 @@ namespace Quhinja.Data.Migrations
                         new
                         {
                             Id = 1,
-                            ConcurrencyStamp = "a8af8355-1742-41fd-90d8-77b2bc343106",
+                            ConcurrencyStamp = "dd9f7033-b4f1-47be-a2df-3fc619f7056f",
                             Name = "admin",
                             NormalizedName = "ADMIN",
                             RoleDescription = "admin"
@@ -367,7 +363,7 @@ namespace Quhinja.Data.Migrations
                         new
                         {
                             Id = 2,
-                            ConcurrencyStamp = "d0dd054d-7abb-4aab-97b7-e53cf2af9fdd",
+                            ConcurrencyStamp = "25ee817f-8ba8-4e91-a6f2-00dee719b090",
                             Name = "user",
                             NormalizedName = "USER",
                             RoleDescription = "user"
@@ -478,9 +474,9 @@ namespace Quhinja.Data.Migrations
                         {
                             Id = 1,
                             AccessFailedCount = 0,
-                            ConcurrencyStamp = "8f64bb9e-bb65-4eda-8140-813e9e062ea2",
-                            DateOfBirth = new DateTime(2020, 12, 17, 14, 27, 53, 181, DateTimeKind.Local).AddTicks(1065),
-                            DateOfEmployment = new DateTime(2020, 12, 17, 14, 27, 53, 191, DateTimeKind.Local).AddTicks(2547),
+                            ConcurrencyStamp = "8b83440c-1df2-4f5e-92ac-ea2af15f6d63",
+                            DateOfBirth = new DateTime(2020, 12, 17, 2, 46, 32, 438, DateTimeKind.Local).AddTicks(4768),
+                            DateOfEmployment = new DateTime(2020, 12, 17, 2, 46, 32, 447, DateTimeKind.Local).AddTicks(9023),
                             Email = "srdjan.arsic@quadrixsoft.com",
                             EmailConfirmed = false,
                             Gender = 1,

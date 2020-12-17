@@ -127,7 +127,8 @@ namespace Quhinja.Services.Implementations
                 Expires = expires,
                 Name = user.Name,
                 Surname = user.Surname,
-                ProfilePictureUrl = user.ProfilePictureUrl
+                ProfilePictureUrl = user.ProfilePictureUrl,
+                Image = user.Image
             };
         }
 

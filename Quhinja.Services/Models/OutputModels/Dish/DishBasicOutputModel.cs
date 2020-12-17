@@ -13,6 +13,8 @@ namespace Quhinja.Services.Models.OutputModels.Dish
 
         public string Picture { get; set; }
 
+        public byte [] Image { get; set; }
+
         public string Description { get; set; }
 
         public string DishType { get; set; }

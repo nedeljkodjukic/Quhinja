@@ -11,6 +11,7 @@ namespace Quhinja.Services.Interfaces
   public interface IDishService
     {
         Task<DishWithRecipesOutputModel> GetDishByIdAsync(int id);
+         Task AddImageBytesAsync(int dishId, byte[] image);
 
         Task<ICollection<string>> GetDishTypesAsync();
         Task<ICollection<DishBasicOutputModel>> GetDishesAsync();

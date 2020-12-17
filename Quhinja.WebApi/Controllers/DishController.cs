@@ -110,10 +110,13 @@ namespace Quhinja.WebApi.Controllers
         {
 
             var files= this.Request.Form.Files;
-        
-                var path = await blobService.UploadPictureAsync(files.First(), BlobService.DishPicturesContainer);
 
-                await dishService.AddImageToDishAsync( dishId, path);
+            //   var path = await blobService.UploadPictureAsync(files.First(), BlobService.DishPicturesContainer);
+            var bytes = await blobService.GetBytesFromPicture(files.First());
+            await dishService.AddImageBytesAsync(dishId, bytes);
+
+
+            //    await dishService.AddImageToDishAsync( dishId, path);
             
 
             return Ok();

@@ -11,6 +11,8 @@ namespace Quhinja.Data.Entiities
 
         public string Picture { get; set; }
 
+        public byte [] Image { get; set; }
+
         public string Description { get; set; }
 
         public ICollection<Recipe> Recipes { get; set; }

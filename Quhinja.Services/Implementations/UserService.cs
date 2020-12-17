@@ -82,49 +82,66 @@ namespace Quhinja.Services.Implementations
         public async Task UpdateUserAsync(UserUpdateInputModel model, int userId)
         {
             var userInDb = await data.Users.FindAsync(userId);
-            
             userInDb.Name = model.Name;
             userInDb.Surname = model.Surname;
-            userInDb.FavouriteDishId = model.FavouriteDishId;
+            var oldDish=0;
+
+            if (model.FavouriteDishId != 0)
+            {
+                if(userInDb.FavouriteDishId!=null)
+                oldDish = (int)userInDb.FavouriteDishId;
+                else oldDish = 0;
+
+                userInDb.FavouriteDishId = model.FavouriteDishId;
+                
+            }
+
+            data.Update(userInDb);
+            var menuItemForEmpl = await data.MenuItems.Include(x => x.Recipe).Where(x => x.DateOfDish.Date == userInDb.DateOfEmployment.Date).FirstOrDefaultAsync();
+
+            var menuItemForBirth = await data.MenuItems.Include(x => x.Recipe).Where(x => x.DateOfDish.Date == userInDb.DateOfBirth.Date).FirstOrDefaultAsync();
+
+
             var FavouriteDish = await data.Dishes.Include(x => x.Recipes).Include(x => x.selectedRecipe).SingleOrDefaultAsync(x => x.Id == model.FavouriteDishId);
+
             //set FavouriteDish in Menu 
-
-            var menuItemForBirth = await data.MenuItems.Include(x => x.Recipe).Where(x => x.DateOfDish.Date == userInDb.DateOfBirth.Date).SingleOrDefaultAsync();
-            var menuItemForEmpl =  await data.MenuItems.Include(x => x.Recipe).Where(x => x.DateOfDish.Date == userInDb.DateOfEmployment.Date).SingleOrDefaultAsync();
-
-            if (menuItemForBirth==null)
+            if (FavouriteDish != null && oldDish != model.FavouriteDishId)
             {
-                MenuItem mi = new MenuItem();
-                mi.DateOfDish = userInDb.DateOfBirth;
-                mi.RecipeId = FavouriteDish.selectedRecipeId;
-                await data.MenuItems.AddAsync(mi);
-                await data.SaveChangesAsync();
-            }
-            else
-            {
-                menuItemForBirth.RecipeId = FavouriteDish.selectedRecipeId;
-                data.MenuItems.Update(menuItemForBirth);
-                await data.SaveChangesAsync();
-            }
-            if (menuItemForEmpl == null)
-            {
-                MenuItem mi = new MenuItem();
-                mi.DateOfDish = userInDb.DateOfEmployment;
-                mi.RecipeId = FavouriteDish.selectedRecipeId;
-                await data.MenuItems.AddAsync(mi);
-                await data.SaveChangesAsync();
-            }
-            else
-            {
-                menuItemForEmpl.RecipeId = FavouriteDish.selectedRecipeId;
-                data.MenuItems.Update(menuItemForEmpl);
-                await data.SaveChangesAsync();
-            }
 
 
+                if (menuItemForBirth == null)
+                {
+                    MenuItem mi = new MenuItem();
+                    mi.DateOfDish = userInDb.DateOfBirth;
+                    mi.RecipeId = FavouriteDish.selectedRecipeId;
+                    await data.MenuItems.AddAsync(mi);
+                    await data.SaveChangesAsync();
+                }
+                else
+                {
+                    menuItemForBirth.RecipeId = FavouriteDish.selectedRecipeId;
+                    data.MenuItems.Update(menuItemForBirth);
+                    await data.SaveChangesAsync();
+                }
+                if (menuItemForEmpl == null)
+                {
+                    MenuItem mi = new MenuItem();
+                    mi.DateOfDish = userInDb.DateOfEmployment;
+                    mi.RecipeId = FavouriteDish.selectedRecipeId;
+                    await data.MenuItems.AddAsync(mi);
+                    await data.SaveChangesAsync();
+                }
+                else
+                {
+                    menuItemForEmpl.RecipeId = FavouriteDish.selectedRecipeId;
+                    data.MenuItems.Update(menuItemForEmpl);
+                    await data.SaveChangesAsync();
+                }
 
 
-            data.SaveChanges();
+            }
+            await data.SaveChangesAsync();
+
         }
        
 
@@ -138,6 +155,20 @@ namespace Quhinja.Services.Implementations
             }
 
             user.ProfilePictureUrl = profilePictureUrl;
+
+            data.SaveChanges();
+        }
+
+        public async Task UpdateProfilePictureBytesAsync(int userId, byte [] profilePictureUrl)
+        {
+            var user = await data.Users.FindAsync(userId);
+
+            if (user == null)
+            {
+                throw new Exception("Ne postoji u bazi");
+            }
+
+            user.Image = profilePictureUrl;
 
             data.SaveChanges();
         }

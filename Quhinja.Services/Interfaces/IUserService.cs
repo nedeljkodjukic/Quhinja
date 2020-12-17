@@ -17,7 +17,8 @@ namespace Quhinja.Services.Interfaces
         Task<IEnumerable<UserInfoOutputModel>> GetTodayBirthUsers();
         Task<IEnumerable<UserInfoOutputModel>> GetTodayEmployeeDateUsers();
 
-
         Task UpdateProfilePictureAsync(int userId, string profilePictureUrl);
+        Task UpdateProfilePictureBytesAsync(int userId, byte [] profilePictureUrl);
+
     }
 }

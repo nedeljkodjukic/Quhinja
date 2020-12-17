@@ -80,6 +80,14 @@ namespace Quhinja.Services.Implementations
             }
         
     }
+        public async Task AddImageBytesAsync ( int dishId, byte [] image)
+        {
+            var dish = await data.Dishes.FindAsync(dishId);
+            dish.Image =image;
+            data.SaveChanges();
+
+        }
+
         public async Task AddImageToDishAsync(int dishId, string path)
         {
             var dish = await data.Dishes.FindAsync(dishId);

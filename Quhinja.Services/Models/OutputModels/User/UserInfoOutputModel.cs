@@ -23,7 +23,7 @@ namespace Quhinja.Services.Models.OutputModels.User
         public ICollection<MissedLunchBasicOutputModel> MissedDates { get; set; }
 
 
-
+        public byte [] Image { get; set; }
         public string ProfilePictureUrl { get; set; }
 
         public DishBasicOutputModel FavouriteDish { get; set; }

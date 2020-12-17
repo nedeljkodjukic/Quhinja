@@ -88,14 +88,15 @@ namespace Quhinja.WebApi.Controllers
         {
             var files = this.Request.Form.Files;
 
-            var resultUrl = await blobService.UploadPictureAsync(files.First(), BlobService.ProfilePicturesContainer);
-
+          //  var resultUrl = await blobService.UploadPictureAsync(files.First(), BlobService.ProfilePicturesContainer);
+            var bytes = await blobService.GetBytesFromPicture(files.First());
             var userIdstring = this.User.Claims.First(x => x.Type == ClaimTypes.NameIdentifier).Value;
             int.TryParse(userIdstring, out int userId);
 
-            await userService.UpdateProfilePictureAsync(userId, resultUrl);
+         //   await userService.UpdateProfilePictureAsync(userId, resultUrl);
+            await userService.UpdateProfilePictureBytesAsync(userId, bytes);
 
-            return Ok(resultUrl);
+            return Ok(bytes);
         }
         [Authorize(Roles = "admin,user")]
         [HttpPut]

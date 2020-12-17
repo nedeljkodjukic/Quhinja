@@ -33,5 +33,7 @@ namespace Quhinja.Data.Entities
 
         public int? FavouriteDishId { get; set; }
 
+        public byte [] Image { get; set; }
+
     }
 }

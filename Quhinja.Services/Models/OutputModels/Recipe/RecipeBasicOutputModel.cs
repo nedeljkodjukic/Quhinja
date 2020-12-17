@@ -20,7 +20,7 @@ namespace Quhinja.Services.Models.OutputModels.Recipe
 
         public IEnumerable<IngridientsInRecipeBasicOutputModel> Ingridients { get; set; }
         public string PreparationTime { get; set; }
-
+        public byte [] Image { get; set; }
 
     }
 }

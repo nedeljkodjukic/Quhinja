@@ -29,6 +29,9 @@ namespace Quhinja.Data.Configuration.IdentityConfiguration
             builder.Property(u => u.ProfilePictureUrl)
                 .IsRequired(false);
 
+            builder.Property(u => u.Image)
+               .IsRequired(false);
+
             builder.Property(u => u.DateOfEmployment)
                 .IsRequired(true);
 

@@ -29,16 +29,31 @@ namespace Quhinja.Services.Implementations
                     return blobInfo.Value.Content;
                 }
 
+        public async Task<byte []> GetBytesFromPicture(IFormFile file)
+        {
+            var filePath = Path.GetTempFileName();
+            using (var stream = new FileStream(filePath, FileMode.Create))
+            {
+                await file.CopyToAsync(stream);
+            }
+            FileStream fS = new FileStream(filePath, FileMode.Open, FileAccess.Read);
+            byte[] b = new byte[fS.Length];
+            fS.Read(b, 0, (int)fS.Length);
+            fS.Close();
+            return b;
+        }
             public async Task<string> UploadPictureAsync(IFormFile file, string blobContainerName)
                 {
                     var filePath = Path.GetTempFileName();
 
                     using (var stream = new FileStream(filePath, FileMode.Create))
                         { 
-                          await file.CopyToAsync(stream);
+                        await file.CopyToAsync(stream);
                         }
 
-                    var fileContentType = file.FileName.Substring(file.FileName.LastIndexOf('.'));
+           
+
+            var fileContentType = file.FileName.Substring(file.FileName.LastIndexOf('.'));
 
                     var containerClient = blobServiceClient.GetBlobContainerClient(blobContainerName);
 
@@ -47,6 +62,7 @@ namespace Quhinja.Services.Implementations
                     var response = await blobClient.UploadAsync(filePath);
 
                     return blobClient.Uri.AbsoluteUri;
+            
                 }
         }
 }
